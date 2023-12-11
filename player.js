@@ -8,7 +8,6 @@ function CreatePlayer(x, y, parent) {
     this.updown = 0;
     this.speed = 5;
     this.jumpspeed = 6;
-    this.downspeed = 8;
     this.isDead = false;
     this.sprite
     this.insertPlayer = function () {
@@ -35,10 +34,6 @@ function CreatePlayer(x, y, parent) {
         
       }
 
-    this.down = function(){
-      var nextY = self.y + self.downspeed * self.updown
-      
-    }
     
 }
 
