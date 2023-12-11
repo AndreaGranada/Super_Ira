@@ -1,0 +1,17 @@
+#board{
+    background-color: black;
+    height: 700px;
+    width: 500px;
+    margin: 50px auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.player{
+    background-color: red;
+    height: 30px;
+    width: 15px;
+    position: absolute;
+    bottom: 30px;
+    left: 243px;
+}
