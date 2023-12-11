@@ -16,6 +16,14 @@ function CreatePlayer(x, y, parent) {
         parent.appendChild(newPlayer);
         this.sprite = newPlayer;
     }
+    this.move = function() {
+        var nextX = self.x + self.speed * self.direction
+        if(nextX >= 0 && nextX <= 485) {
+          self.x += self.speed * self.direction
+          self.sprite.style.left = self.x + 'px'
+        }
+      }
+    
 }
 
 
