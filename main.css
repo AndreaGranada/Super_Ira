@@ -15,3 +15,8 @@
     bottom: 30px;
     left: 243px;
 }
+
+.plataform{
+    position: absolute;
+    background-color: brown;
+}
