@@ -11,11 +11,12 @@
     background-image: url(./img/super_ira.png);
     background-size: contain;
     background-repeat: no-repeat;
-    height: 47px;
-    width: 30px;
+    height: 78px;
+    width: 50px;
     position: absolute;
     bottom: 30px;
     left: 243px;
+    z-index: 1;
 }
 
 .plataform{
@@ -26,4 +27,5 @@
 .pipelines{
     position:absolute;
     background-color: green;
+    z-index: 2;
 }

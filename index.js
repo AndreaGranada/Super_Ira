@@ -2,22 +2,33 @@ import {CreatePlayer} from "./player.js";
 import { CreatePlataform, CreatePipelines }  from "./plataforms_pipelines.js";
 var board = document.getElementById('board');
 
-var iratze = new CreatePlayer(243, 30, board);
+var iratze = new CreatePlayer(243, 15, board);
 
 iratze.insertPlayer();
 
 
-var plataform1 = new CreatePlataform(0, 150, 180, board);
-var plataform2 = new CreatePlataform(130, 200, 300, board);
-var plataform3 = new CreatePlataform(270, 450, 180, board);
+var plataform1 = new CreatePlataform(0, 100, 180, board, iratze);
+var plataform2 = new CreatePlataform(130, 250, 300, board, iratze);
+var plataform3 = new CreatePlataform(270, 450, 180, board, iratze);
+var plataform4 = new CreatePlataform(0, 0, 500, board, iratze);
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
+plataform4.insertPlataform();
 
-var pipeline1 = new CreatePipelines(0, 660, board);
-var pipeline2 = new CreatePipelines(460, 0, board);
+var pipeline1 = new CreatePipelines(0, 615, board);
+var pipeline2 = new CreatePipelines(415, 15, board);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
+
+var collisionPlataform1= setInterval(function(){
+  plataform1.checkCollision();
+  plataform2.checkCollision();
+  plataform3.checkCollision();
+  plataform4.checkCollision();
+  
+
+},50)
 
 // Controles
 window.addEventListener( 'keydown', function(e) {
@@ -35,10 +46,9 @@ window.addEventListener( 'keydown', function(e) {
           setTimeout(function(){
             iratze.updown = -1;
           },1000)
-          console.log(saltoHabilitado)
         }
 
-        if(iratze.y === 30){
+        if(iratze.y === iratze.floor){
           saltoHabilitado = true;
         }
         break
@@ -49,10 +59,9 @@ window.addEventListener( 'keydown', function(e) {
           setTimeout(function(){
             iratze.updown = -1;
           },1000)
-          console.log(saltoHabilitado)
         }
 
-        if(iratze.y === 30){
+        if(iratze.y === iratze.floor){
           saltoHabilitado = true;
         }      
         break
