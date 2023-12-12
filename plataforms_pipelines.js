@@ -4,7 +4,8 @@ function CreatePlataform(x, y, width, parent, player) {
     this.y = y;
     this.width = width;
     this.height = 15;
-    this.sprite
+    this.sprite;
+    this.colision = false;
     this.insertPlataform = function () {
         var newPlataform = document.createElement('div');
         newPlataform.classList.add('plataform');
@@ -16,13 +17,27 @@ function CreatePlataform(x, y, width, parent, player) {
         this.sprite = newPlataform;
     }
     this.checkCollision = function () {
+      
         if (this.x < (player.x + player.width) &&
             this.y < player.y + player.height &&
             this.x + this.width > player.x &&
             this.y + this.height > player.y && player.updown === -1) {
-                player.floor = this.y + this.height;
+                //.floor = this.y + this.height;
+                player.updown = 0;
+                this.colision = true;
+                
             }
-        
+
+          
+      /*  if(this.x >player.x + player.width){
+            console.log("caida izq")
+        }
+        */
+        if(this.x + this.width < player.x && this.colision){
+            player.updown = -1;
+            console.log("saliendo por la derecha")
+            this.colision = false;
+        }
     }
 }
 

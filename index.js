@@ -48,7 +48,7 @@ window.addEventListener( 'keydown', function(e) {
           },1000)
         }
 
-        if(iratze.y === iratze.floor){
+        if(iratze.updown === 0){
           saltoHabilitado = true;
         }
         break
@@ -61,7 +61,7 @@ window.addEventListener( 'keydown', function(e) {
           },1000)
         }
 
-        if(iratze.y === iratze.floor){
+        if(iratze.updown === 0){
           saltoHabilitado = true;
         }      
         break
