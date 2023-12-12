@@ -28,16 +28,40 @@ window.addEventListener( 'keydown', function(e) {
       case 'd':
         iratze.direction = +1
         break
-      /*case ' ':
-        var newBullet = new Bullet(player.x + 20, 735, board, enemies)
-        newBullet.insertBullet()
-        bullets.push(newBullet)
-        console.log(newBullet)
-        break*/
+      case ' ':
+        if(saltoHabilitado === true){
+          saltoHabilitado = false;
+          iratze.updown = +1
+          setTimeout(function(){
+            iratze.updown = -1;
+          },1000)
+          console.log(saltoHabilitado)
+        }
+
+        if(iratze.y === 30){
+          saltoHabilitado = true;
+        }
+        break
+      case 'w':
+        if(saltoHabilitado === true){
+          saltoHabilitado = false;
+          iratze.updown = +1
+          setTimeout(function(){
+            iratze.updown = -1;
+          },1000)
+          console.log(saltoHabilitado)
+        }
+
+        if(iratze.y === 30){
+          saltoHabilitado = true;
+        }      
+        break
     }
   }) 
 
 // Movimiento
+
+  var saltoHabilitado = true;
   var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
@@ -51,8 +75,15 @@ function playerMovement() {
     })
   }*/
 }
+
+
+
 window.addEventListener('keyup', function(e) {
     if(e.key === 'a' || e.key === 'd') {
       iratze.direction = 0
     }
   })
+
+  
+
+
