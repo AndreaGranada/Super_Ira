@@ -8,16 +8,20 @@ iratze.insertPlayer();
 
 
 var plataform1 = new CreatePlataform(0, 100, 180, board, iratze);
-var plataform2 = new CreatePlataform(130, 250, 300, board, iratze);
-var plataform3 = new CreatePlataform(270, 450, 180, board, iratze);
-var plataform4 = new CreatePlataform(0, 0, 500, board, iratze);
+var plataform2 = new CreatePlataform(130, 200, 300, board, iratze);
+var plataform3 = new CreatePlataform(270, 300, 180, board, iratze);
+var plataform4 = new CreatePlataform(0, 5, 500, board, iratze);
+var plataform5 = new CreatePlataform(20, 400, 260, board, iratze);
+var plataform6 = new CreatePlataform(125, 500, 250, board, iratze);
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
 plataform4.insertPlataform();
+plataform5.insertPlataform();
+plataform6.insertPlataform();
 
 var pipeline1 = new CreatePipelines(0, 615, board);
-var pipeline2 = new CreatePipelines(415, 15, board);
+var pipeline2 = new CreatePipelines(415, 20, board);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
 
@@ -26,12 +30,22 @@ var collisionPlataform1= setInterval(function(){
   plataform2.checkCollision();
   plataform3.checkCollision();
   plataform4.checkCollision();
-  
-
+  plataform5.checkCollision();
+  plataform6.checkCollision();
 },50)
 
 // Controles
+
+var teclasPresionadas = {
+  'a': false,
+  'd': false,
+  'w': false,
+  ' ': false,
+};
+
 window.addEventListener( 'keydown', function(e) {
+  teclasPresionadas[e.key] = true;
+
     switch(e.key) {
       case 'a':
         iratze.direction = -1
@@ -39,37 +53,42 @@ window.addEventListener( 'keydown', function(e) {
       case 'd':
         iratze.direction = +1
         break
-      case ' ':
-        if(saltoHabilitado === true){
+      
+        case ' ':
+        case 'w':
+          if(saltoHabilitado === true && iratze.updown === 0){
+            saltoHabilitado = false;
+            iratze.updown = +1
+            setTimeout(function(){
+              iratze.updown = -1;
+              saltoHabilitado = true;
+            },1000)
+            }
+    
+            if(iratze.updown === 0){
+              saltoHabilitado = true;
+            }      
+            break
+      } 
+      
+      if (teclasPresionadas['a'] || teclasPresionadas['d'] && teclasPresionadas['w'] ) {
+        if(saltoHabilitado === true && iratze.updown === 0){
           saltoHabilitado = false;
           iratze.updown = +1
           setTimeout(function(){
             iratze.updown = -1;
+            saltoHabilitado = true;
           },1000)
-        }
-
-        if(iratze.updown === 0){
-          saltoHabilitado = true;
-        }
-        break
-      case 'w':
-        if(saltoHabilitado === true){
-          saltoHabilitado = false;
-          iratze.updown = +1
-          setTimeout(function(){
-            iratze.updown = -1;
-          },1000)
-        }
-
-        if(iratze.updown === 0){
-          saltoHabilitado = true;
-        }      
-        break
-    }
+          }
+  
+          if(iratze.updown === 0){
+            saltoHabilitado = true;
+          } 
+      }
   }) 
 
-// Movimiento
 
+// Movimiento
   var saltoHabilitado = true;
   var timerId = setInterval(playerMovement, 50)
 
@@ -88,11 +107,12 @@ function playerMovement() {
 
 
 window.addEventListener('keyup', function(e) {
-    if(e.key === 'a' || e.key === 'd') {
-      iratze.direction = 0
-    }
-  })
-
+  teclasPresionadas[e.key] = false;
+  if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
+    // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
+    iratze.direction = 0;
+  } 
+});
   
 
 
