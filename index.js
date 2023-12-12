@@ -2,7 +2,7 @@ import {CreatePlayer} from "./player.js";
 import { CreatePlataform, CreatePipelines }  from "./plataforms_pipelines.js";
 var board = document.getElementById('board');
 
-var iratze = new CreatePlayer(243, 15, board);
+var iratze = new CreatePlayer(243, 12, board);
 
 iratze.insertPlayer();
 
