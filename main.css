@@ -8,9 +8,11 @@
 }
 
 .player{
-    background-color: red;
-    height: 30px;
-    width: 15px;
+    background-image: url(./img/super_ira.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 47px;
+    width: 30px;
     position: absolute;
     bottom: 30px;
     left: 243px;
