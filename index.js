@@ -7,6 +7,11 @@ var iratze = new CreatePlayer(243, 12, board);
 
 iratze.insertPlayer();
 
+// Aparición de enemigos
+var enemy = new CreateEnemy(50, 630, board, iratze);
+enemy.insertEnemy()
+console.log(enemy)
+
 // Elementos del tablero
 
 var plataform1 = new CreatePlataform(0, 100, 180, board, iratze, enemy);
@@ -24,8 +29,8 @@ plataform5.insertPlataform();
 plataform6.insertPlataform();
 plataform7.insertPlataform();
 
-var pipeline1 = new CreatePipelines(0, 615, board, iratze);
-var pipeline2 = new CreatePipelines(415, 20, board, iratze);
+var pipeline1 = new CreatePipelines(0, 615, board, iratze, enemy);
+var pipeline2 = new CreatePipelines(415, 20, board, iratze, enemy);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
 
@@ -34,10 +39,7 @@ var tuberia1 = pipeline1.sprite;
 tuberia1.style.transform = 'rotate(180deg)'
 
 
-// Aparición de enemigos
-var enemy = new CreateEnemy(50, 630, board);
-enemy.insertEnemy()
-console.log(enemy)
+
 
 var collisionPlataform1 = setInterval(function () {
   plataform1.checkCollision();
@@ -49,6 +51,8 @@ var collisionPlataform1 = setInterval(function () {
   plataform7.checkCollision();
   pipeline1.checkCollision();
   pipeline2.checkCollision();
+  enemy.checkCollision();
+  
 
 }, 50)
 
@@ -120,15 +124,15 @@ var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
   iratze.move();
-
-  /*if(player.isDead === true) {
+  enemy.move();
+  if(iratze.isDead === true) {
     alert('GAME OVER')
     clearInterval(timerId)
-    clearInterval(enemyGenTimer)
-    enemies.forEach(function(enemy) {
+    clearInterval(timerIdEnemy)
+   /* enemies.forEach(function(enemy) {
       enemy.removeEnemy()
-    })
-  }*/
+    })*/
+  }
 }
 
 
@@ -142,20 +146,17 @@ window.addEventListener('keyup', function (e) {
 
 // Movimiento Enemy
 
-var timerIdEnemy = setInterval(enemyMovement, 50)
+var timerIdEnemy = setInterval(enemyMovement, 500)
 
 function enemyMovement() {
-  enemy.move();
-  setTimeout(function(){
-    var random = Math.floor(Math.random() * 10);
+  
+  var random = Math.floor(Math.random() * 10);
     if (random > 8) {
       enemy.direction *= -1
       console.log('Ejecutando')
       console.log(enemy.direction)
-  
     }
-  },2000)
- 
+
 
   /*if(player.isDead === true) {
     alert('GAME OVER')

@@ -6,6 +6,7 @@ function CreatePlataform(x, y, width, parent, player, enemy) {
     this.height = 15;
     this.sprite;
     this.colision = false;
+    this.colisionEnemy = false;
     this.insertPlataform = function () {
         var newPlataform = document.createElement('div');
         newPlataform.classList.add('plataform');
@@ -44,37 +45,39 @@ function CreatePlataform(x, y, width, parent, player, enemy) {
                 this.colision = false;
             }
         }
-    }
 
-    this.checkCollisionEnemy = function() {
         if (this.x < (enemy.x + enemy.width) &&
             this.y < enemy.y &&
             this.x + this.width > enemy.x &&
             this.y + this.height > enemy.y && enemy.updown === -1) {
             enemy.updown = 0;
-            this.colision = true;
+            this.colisionEnemy = true;
 
         }
         //caida izquierda enemigo
-        if (this.x > enemy.x + enemy.width && this.colision) {
+        if (this.x > enemy.x + enemy.width && this.colisionEnemy) {
             if (enemy.updown !== +1) {
                 enemy.updown = -1;
-                this.colision = false;
+                this.colisionEnemy = false;
+                console.log('caida izq')
             }
 
         }
 
         //caida derecha enemigo
-        if (this.x + this.width < enemy.x && this.colision) {
+        if (this.x + this.width < enemy.x && this.colisionEnemy) {
             if (enemy.updown !== +1) {
                 enemy.updown = -1;
-                this.colision = false;
+                this.colisionEnemy = false;
+                console.log('caida derecha')
             }
         }
     }
+
+
 }
 
-function CreatePipelines(x, y, parent, player) {
+function CreatePipelines(x, y, parent, player, enemy) {
     var self = this;
     this.x = x;
     this.y = y;
@@ -119,6 +122,32 @@ function CreatePipelines(x, y, parent, player) {
             if (player.updown !== +1) {
                 player.updown = -1;
                 this.colision = false;
+            }
+        }
+        if (this.x < (enemy.x + enemy.width) &&
+            this.y < enemy.y &&
+            this.x + this.width > enemy.x &&
+            this.y + this.height > enemy.y && enemy.updown === -1) {
+            enemy.updown = 0;
+            this.colisionEnemy = true;
+
+        }
+        //caida izquierda enemigo
+        if (this.x > enemy.x + enemy.width && this.colisionEnemy) {
+            if (enemy.updown !== +1) {
+                enemy.updown = -1;
+                this.colisionEnemy = false;
+                console.log('caida izq')
+            }
+
+        }
+
+        //caida derecha enemigo
+        if (this.x + this.width < enemy.x && this.colisionEnemy) {
+            if (enemy.updown !== +1) {
+                enemy.updown = -1;
+                this.colisionEnemy = false;
+                console.log('caida derecha')
             }
         }
 
