@@ -16,32 +16,38 @@ function CreatePlataform(x, y, width, parent, player) {
         parent.appendChild(newPlataform);
         this.sprite = newPlataform;
     }
+
     this.checkCollision = function () {
-      
+     
         if (this.x < (player.x + player.width) &&
-            this.y < player.y + player.height &&
+            this.y < player.y /*+ player.height*/ &&
             this.x + this.width > player.x &&
             this.y + this.height > player.y && player.updown === -1) {
-                //.floor = this.y + this.height;
                 player.updown = 0;
                 this.colision = true;
                 
             }
 
-          
-      /*  if(this.x >player.x + player.width){
-            console.log("caida izq")
-        }
-        */
-        if(this.x + this.width < player.x && this.colision){
+          //caida izquierda
+        if(this.x + 10 >player.x + player.width && this.colision){
+            if(player.updown !== +1){
             player.updown = -1;
-            console.log("saliendo por la derecha")
             this.colision = false;
+            }
+            
+        }
+        
+        //caida derecha
+        if(this.x + this.width - 10 < player.x && this.colision){
+            if(player.updown !== +1){
+            player.updown = -1;
+            this.colision = false;
+            }
         }
     }
 }
 
-function CreatePipelines(x, y, parent) {
+function CreatePipelines(x, y, parent, player) {
     var self = this;
     this.x = x;
     this.y = y;
@@ -59,6 +65,37 @@ function CreatePipelines(x, y, parent) {
         this.sprite = newPipeline;
     }
 
+    this.checkCollision = function () {
+
+        var nextY = self.y + self.jumpspeed * self.updown;
+      
+        if (this.x < (player.x + player.width) &&
+            this.y < player.y /*+ player.height*/ &&
+            this.x + this.width > player.x &&
+            this.y + this.height > player.y && player.updown === -1) {
+                player.updown = 0;
+                this.colision = true;
+                
+            }
+
+          //caida izquierda
+        if(this.x + 10 >player.x + player.width && this.colision){
+            if(player.updown !== +1){
+            player.updown = -1;
+            this.colision = false;
+            }
+            
+        }
+        
+        //caida derecha
+        if(this.x + this.width - 10 < player.x && this.colision){
+            if(player.updown !== +1){
+            player.updown = -1;
+            this.colision = false;
+            }
+        }
+
+    }
 }
 
 export { CreatePlataform, CreatePipelines }
