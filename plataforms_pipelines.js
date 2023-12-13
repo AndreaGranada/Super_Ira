@@ -1,4 +1,4 @@
-function CreatePlataform(x, y, width, parent, player, enemy) {
+function CreatePlataform(x, y, width, parent, player, enemies) {
     var self = this;
     this.x = x;
     this.y = y;
@@ -46,32 +46,68 @@ function CreatePlataform(x, y, width, parent, player, enemy) {
             }
         }
 
-        if (this.x < (enemy.x + enemy.width) &&
-            this.y < enemy.y &&
-            this.x + this.width > enemy.x &&
-            this.y + this.height > enemy.y && enemy.updown === -1) {
-            enemy.updown = 0;
-            this.colisionEnemy = true;
+        //colision con enemigo
 
-        }
+        console.log(enemies)
+        enemies.forEach(function (enemy) {
+            if (self.x < (enemy.x + enemy.width) &&
+                self.y < enemy.y &&
+                self.x + self.width > enemy.x &&
+                self.y + self.height > enemy.y && enemy.updown === -1) {
+                enemy.updown = 0;
+                self.colisionEnemy = true;
+                //enemy.removeEnemy()
+                //enemies.splice(i, 1)
+            }
+
+            //caida izquierda enemigo
+            if (self.x > enemy.x + enemy.width && self.colisionEnemy) {
+                if (enemy.updown !== +1) {
+                    enemy.updown = -1;
+                    self.colisionEnemy = false;
+                    console.log('caida izq')
+                }
+
+            }
+
+            //caida derecha enemigo
+            if (self.x + self.width < enemy.x && self.colisionEnemy) {
+                if (enemy.updown !== +1) {
+                    enemy.updown = -1;
+                    self.colisionEnemy = false;
+                    console.log('caida derecha')
+                }
+            }
+
+        })
+
+        // if (this.x < (enemy.x + enemy.width) &&
+        //     this.y < enemy.y &&
+        //     this.x + this.width > enemy.x &&
+        //     this.y + this.height > enemy.y && enemy.updown === -1) {
+        //     enemy.updown = 0;
+        //     this.colisionEnemy = true;
+        // }
+
         //caida izquierda enemigo
-        if (this.x > enemy.x + enemy.width && this.colisionEnemy) {
-            if (enemy.updown !== +1) {
-                enemy.updown = -1;
-                this.colisionEnemy = false;
-                console.log('caida izq')
-            }
+        // if (this.x > enemy.x + enemy.width && this.colisionEnemy) {
+        //     if (enemy.updown !== +1) {
+        //         enemy.updown = -1;
+        //         this.colisionEnemy = false;
+        //         console.log('caida izq')
+        //     }
 
-        }
+        // }
 
-        //caida derecha enemigo
-        if (this.x + this.width < enemy.x && this.colisionEnemy) {
-            if (enemy.updown !== +1) {
-                enemy.updown = -1;
-                this.colisionEnemy = false;
-                console.log('caida derecha')
-            }
-        }
+        // //caida derecha enemigo
+        // if (this.x + this.width < enemy.x && this.colisionEnemy) {
+        //     if (enemy.updown !== +1) {
+        //         enemy.updown = -1;
+        //         this.colisionEnemy = false;
+        //         console.log('caida derecha')
+        //     }
+        // }
+        //}
     }
 
 
