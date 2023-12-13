@@ -20,8 +20,8 @@ plataform4.insertPlataform();
 plataform5.insertPlataform();
 plataform6.insertPlataform();
 
-var pipeline1 = new CreatePipelines(0, 615, board);
-var pipeline2 = new CreatePipelines(415, 20, board);
+var pipeline1 = new CreatePipelines(0, 615, board, iratze);
+var pipeline2 = new CreatePipelines(415, 20, board, iratze);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
 
@@ -32,6 +32,8 @@ var collisionPlataform1= setInterval(function(){
   plataform4.checkCollision();
   plataform5.checkCollision();
   plataform6.checkCollision();
+  pipeline1.checkCollision();
+  pipeline2.checkCollision();
 },50)
 
 // Controles
@@ -71,7 +73,7 @@ window.addEventListener( 'keydown', function(e) {
             break
       } 
       
-      if (teclasPresionadas['a'] || teclasPresionadas['d'] && teclasPresionadas['w'] ) {
+      if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w'] ) {
         if(saltoHabilitado === true && iratze.updown === 0){
           saltoHabilitado = false;
           iratze.updown = +1
