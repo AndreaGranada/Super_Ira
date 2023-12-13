@@ -13,12 +13,14 @@ var plataform3 = new CreatePlataform(270, 300, 180, board, iratze);
 var plataform4 = new CreatePlataform(0, 5, 500, board, iratze);
 var plataform5 = new CreatePlataform(20, 400, 260, board, iratze);
 var plataform6 = new CreatePlataform(125, 500, 250, board, iratze);
+var plataform7 = new CreatePlataform(0, 600, 150, board, iratze);
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
 plataform4.insertPlataform();
 plataform5.insertPlataform();
 plataform6.insertPlataform();
+plataform7.insertPlataform();
 
 var pipeline1 = new CreatePipelines(0, 615, board, iratze);
 var pipeline2 = new CreatePipelines(415, 20, board, iratze);
@@ -32,6 +34,7 @@ var collisionPlataform1= setInterval(function(){
   plataform4.checkCollision();
   plataform5.checkCollision();
   plataform6.checkCollision();
+  plataform7.checkCollision();
   pipeline1.checkCollision();
   pipeline2.checkCollision();
 },50)
@@ -61,11 +64,19 @@ window.addEventListener( 'keydown', function(e) {
           if(saltoHabilitado === true && iratze.updown === 0){
             saltoHabilitado = false;
             iratze.updown = +1
+            console.log(iratze.y)
+            if(iratze.y === 612){
+              setTimeout(function(){
+                iratze.updown = -1;
+                saltoHabilitado = true;
+              },50)
+            }else{
             setTimeout(function(){
               iratze.updown = -1;
               saltoHabilitado = true;
             },1000)
             }
+          }
     
             if(iratze.updown === 0){
               saltoHabilitado = true;

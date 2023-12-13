@@ -18,7 +18,7 @@ function CreatePlataform(x, y, width, parent, player) {
     }
 
     this.checkCollision = function () {
-      
+     
         if (this.x < (player.x + player.width) &&
             this.y < player.y /*+ player.height*/ &&
             this.x + this.width > player.x &&
@@ -66,6 +66,8 @@ function CreatePipelines(x, y, parent, player) {
     }
 
     this.checkCollision = function () {
+
+        var nextY = self.y + self.jumpspeed * self.updown;
       
         if (this.x < (player.x + player.width) &&
             this.y < player.y /*+ player.height*/ &&

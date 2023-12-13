@@ -29,7 +29,7 @@ function CreatePlayer(x, y, parent) {
           self.sprite.style.left = self.x + 'px';
         }
 
-        if(nextY >= self.floor){
+        if(nextY >= self.floor && nextY < 550 + self.height){
           self.y += self.jumpspeed * self.updown
           self.sprite.style.bottom = self.y + 'px'
         }
