@@ -20,11 +20,13 @@
 
 .plataform{
     position: absolute;
-    background-color: brown;
+    background-image: url(./img/plataforma.png);
 }
 
 .pipelines{
     position:absolute;
-    background-color: green;
     z-index: 2;
+    background-image: url(./img/tubo.png);
+    background-repeat: no-repeat;
+   background-size: cover;
 }

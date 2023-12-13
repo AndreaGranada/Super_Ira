@@ -25,6 +25,13 @@ plataform7.insertPlataform();
 var pipeline1 = new CreatePipelines(0, 615, board, iratze);
 var pipeline2 = new CreatePipelines(415, 20, board, iratze);
 pipeline1.insertPipeline();
+
+
+// rotar tuberia de arriba
+var tuberia1 = pipeline1.sprite;
+tuberia1.style.transform = 'rotate(180deg)'
+
+
 pipeline2.insertPipeline();
 
 var collisionPlataform1= setInterval(function(){

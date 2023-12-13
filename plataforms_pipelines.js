@@ -52,7 +52,7 @@ function CreatePipelines(x, y, parent, player) {
     this.x = x;
     this.y = y;
     this.width = 85;
-    this.height = 85;
+    this.height = 64;
     this.sprite
     this.insertPipeline = function () {
         var newPipeline = document.createElement('div');
