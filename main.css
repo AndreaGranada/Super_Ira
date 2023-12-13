@@ -26,7 +26,11 @@
 .enemy{
     position: absolute;
     background-image: url(./img/gato.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 3;
+    height: 23px;
+    width: 30px;
 }
 
 .pipelines{
