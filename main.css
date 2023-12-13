@@ -23,6 +23,12 @@
     background-image: url(./img/plataforma.png);
 }
 
+.enemy{
+    position: absolute;
+    background-image: url(./img/gato.png);
+    z-index: 3;
+}
+
 .pipelines{
     position:absolute;
     z-index: 2;

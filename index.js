@@ -1,11 +1,13 @@
 import {CreatePlayer} from "./player.js"; 
 import { CreatePlataform, CreatePipelines }  from "./plataforms_pipelines.js";
+import { CreateEnemy }  from "./enemy.js";
 var board = document.getElementById('board');
 
 var iratze = new CreatePlayer(243, 12, board);
 
 iratze.insertPlayer();
 
+// Elementos del tablero
 
 var plataform1 = new CreatePlataform(0, 100, 180, board, iratze);
 var plataform2 = new CreatePlataform(130, 200, 300, board, iratze);
@@ -25,14 +27,17 @@ plataform7.insertPlataform();
 var pipeline1 = new CreatePipelines(0, 615, board, iratze);
 var pipeline2 = new CreatePipelines(415, 20, board, iratze);
 pipeline1.insertPipeline();
-
+pipeline2.insertPipeline();
 
 // rotar tuberia de arriba
 var tuberia1 = pipeline1.sprite;
 tuberia1.style.transform = 'rotate(180deg)'
 
 
-pipeline2.insertPipeline();
+// Aparición de enemigos
+var enemy = new CreateEnemy(150, 650, board);
+enemy.insertEnemy()
+console.log(enemy.x)
 
 var collisionPlataform1= setInterval(function(){
   plataform1.checkCollision();
