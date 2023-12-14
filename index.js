@@ -24,15 +24,15 @@ var enemyGenTimer = setInterval(createEnemy, 5000)
 
 
 // Elementos del tablero
-
-var plataform1 = new CreatePlataform(0, 100, 180, board, iratze, enemies);
-var plataform2 = new CreatePlataform(130, 200, 300, board, iratze, enemies);
-var plataform3 = new CreatePlataform(270, 300, 180, board, iratze, enemies);
-var plataform4 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
-var plataform5 = new CreatePlataform(20, 400, 260, board, iratze, enemies);
-var plataform6 = new CreatePlataform(125, 500, 250, board, iratze, enemies);
+var plataform1 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
+var plataform2 = new CreatePlataform(0, 100, 180, board, iratze, enemies); //2
+var plataform3 = new CreatePlataform(130, 200, 300, board, iratze, enemies);
+var plataform4 = new CreatePlataform(270, 300, 230, board, iratze, enemies); //4
+var plataform5 = new CreatePlataform(35, 400, 260, board, iratze, enemies);
+var plataform6 = new CreatePlataform(145, 500, 250, board, iratze, enemies);
 var plataform7 = new CreatePlataform(0, 600, 150, board, iratze, enemies);
 var platforms = [];
+
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
@@ -40,6 +40,7 @@ plataform4.insertPlataform();
 plataform5.insertPlataform();
 plataform6.insertPlataform();
 plataform7.insertPlataform();
+
 
 platforms.push(plataform1);
 platforms.push(plataform2);
@@ -77,11 +78,11 @@ var collisionPlataform1 = setInterval(function () {
 
 //colisiones de enemigos con plataformas
 
-var collisionPlataformEnemies = setInterval(function(){
-  enemies.forEach(function(enemy){
-    enemy.checkCollision();
-  })
-}, 50)
+ var collisionPlataformEnemies = setInterval(function(){
+   enemies.forEach(function(enemy){
+     enemy.checkCollision();
+   })
+ }, 50)
 
 // Controles
 
