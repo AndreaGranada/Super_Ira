@@ -3,24 +3,33 @@ import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 var board = document.getElementById('board');
 
-var iratze = new CreatePlayer(243, 12, board);
+var iratze = new CreatePlayer(243, 12, board, enemies);
 
 iratze.insertPlayer();
 
 // Aparición de enemigos
-var enemy = new CreateEnemy(50, 630, board, iratze);
-enemy.insertEnemy()
-console.log(enemy)
+var enemies = []
+// var enemy = new CreateEnemy(50, 630, board, iratze);
+// enemy.insertEnemy()
+// console.log(enemy)
+
+function createEnemy() {
+  var enemy = new CreateEnemy(0, 630, board)
+  enemy.insertEnemy()
+  enemies.push(enemy)
+}
+
+var enemyGenTimer = setInterval(createEnemy, 5000)
 
 // Elementos del tablero
 
-var plataform1 = new CreatePlataform(0, 100, 180, board, iratze, enemy);
-var plataform2 = new CreatePlataform(130, 200, 300, board, iratze, enemy);
-var plataform3 = new CreatePlataform(270, 300, 180, board, iratze, enemy);
-var plataform4 = new CreatePlataform(0, 5, 500, board, iratze, enemy);
-var plataform5 = new CreatePlataform(20, 400, 260, board, iratze, enemy);
-var plataform6 = new CreatePlataform(125, 500, 250, board, iratze, enemy);
-var plataform7 = new CreatePlataform(0, 600, 150, board, iratze, enemy);
+var plataform1 = new CreatePlataform(0, 100, 180, board, iratze, enemies);
+var plataform2 = new CreatePlataform(130, 200, 300, board, iratze, enemies);
+var plataform3 = new CreatePlataform(270, 300, 180, board, iratze, enemies);
+var plataform4 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
+var plataform5 = new CreatePlataform(20, 400, 260, board, iratze, enemies);
+var plataform6 = new CreatePlataform(125, 500, 250, board, iratze, enemies);
+var plataform7 = new CreatePlataform(0, 600, 150, board, iratze, enemies);
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
@@ -29,8 +38,8 @@ plataform5.insertPlataform();
 plataform6.insertPlataform();
 plataform7.insertPlataform();
 
-var pipeline1 = new CreatePipelines(0, 615, board, iratze, enemy);
-var pipeline2 = new CreatePipelines(415, 20, board, iratze, enemy);
+var pipeline1 = new CreatePipelines(0, 615, board, iratze, enemies);
+var pipeline2 = new CreatePipelines(415, 20, board, iratze, enemies);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
 
@@ -51,7 +60,8 @@ var collisionPlataform1 = setInterval(function () {
   plataform7.checkCollision();
   pipeline1.checkCollision();
   pipeline2.checkCollision();
-  enemy.checkCollision();
+  //plataform1.checkCollisionEnemies();
+  //enemy.checkCollision();
   
 
 }, 50)
@@ -124,11 +134,10 @@ var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
   iratze.move();
-  enemy.move();
   if(iratze.isDead === true) {
     alert('GAME OVER')
     clearInterval(timerId)
-    clearInterval(timerIdEnemy)
+    //clearInterval(timerIdEnemy)
    /* enemies.forEach(function(enemy) {
       enemy.removeEnemy()
     })*/
@@ -146,16 +155,16 @@ window.addEventListener('keyup', function (e) {
 
 // Movimiento Enemy
 
-var timerIdEnemy = setInterval(enemyMovement, 500)
+// var timerIdEnemy = setInterval(enemyMovement, 500)
 
-function enemyMovement() {
+// function enemyMovement() {
   
-  var random = Math.floor(Math.random() * 10);
-    if (random > 8) {
-      enemy.direction *= -1
-      console.log('Ejecutando')
-      console.log(enemy.direction)
-    }
+//   var random = Math.floor(Math.random() * 10);
+//     if (random > 8) {
+//       enemy.direction *= -1
+//       console.log('Ejecutando')
+//       console.log(enemy.direction)
+//     }
 
 
   /*if(player.isDead === true) {
@@ -166,4 +175,3 @@ function enemyMovement() {
       enemy.removeEnemy()
     })
   }*/
-}
