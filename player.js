@@ -35,19 +35,20 @@ function CreatePlayer(x, y, parent, enemies) {
     }
 
   }
-
+  
   this.checkCollision = function () {
-    console.log(enemies)
-    enemies.forEach(function (enemy, i) {
-      if (self.x < (enemy.x + enemy.width) &&
-        self.y < enemy.y + enemy.height &&
-        self.x + self.width > enemy.x &&
-        self.y + self.height > enemy.y) {
-        //enemy.removeEnemy()
-        //enemies.splice(i, 1)
-      }
-    })
-
+    if (enemies && enemies.length > 0) {
+      enemies.forEach(function (enemy) {
+        if (self.x < (enemy.x + enemy.width) &&
+          self.y < enemy.y + enemy.height &&
+          self.x + self.width > enemy.x &&
+          self.y + self.height > enemy.y) {
+          console.log("muerto")
+          //enemy.removeEnemy()
+          //enemies.splice(i, 1)
+        }
+      })
+    }
 
 
   }

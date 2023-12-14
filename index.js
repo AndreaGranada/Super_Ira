@@ -2,13 +2,14 @@ import { CreatePlayer } from "./player.js";
 import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 var board = document.getElementById('board');
+var enemies = []
 
 var iratze = new CreatePlayer(243, 12, board, enemies);
 
 iratze.insertPlayer();
 
 // Aparición de enemigos
-var enemies = []
+
 // var enemy = new CreateEnemy(50, 630, board, iratze);
 // enemy.insertEnemy()
 // console.log(enemy)
@@ -72,6 +73,7 @@ var collisionPlataform1 = setInterval(function () {
   plataform7.checkCollision();
   pipeline1.checkCollision();
   pipeline2.checkCollision();
+  iratze.checkCollision();
   //plataform1.checkCollisionEnemies();
   //enemy.checkCollision();
 }, 50)
