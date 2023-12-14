@@ -26,7 +26,6 @@ function CreatePlataform(x, y, width, parent, player, enemies) {
             this.y + this.height > player.y && player.updown === -1) {
             player.updown = 0;
             this.colision = true;
-
         }
 
         //caida izquierda
@@ -48,20 +47,20 @@ function CreatePlataform(x, y, width, parent, player, enemies) {
 
         //colision con enemigo
 
-        console.log(enemies)
-        enemies.forEach(function (enemy) {
-            if (self.x < (enemy.x + enemy.width) &&
-                self.y < enemy.y &&
-                self.x + self.width > enemy.x &&
-                self.y + self.height > enemy.y && enemy.updown === -1) {
-                enemy.updown = 0;
-                enemy.colisionPlatform = true;
-                //self.colisionEnemy = true;
-                //enemy.removeEnemy()
-                //enemies.splice(i, 1)
-            }else if(self.x + self.width < enemy.x){
-                enemy.colisionPlatform = false;
-            }
+
+        // enemies.forEach(function (enemy) {
+        //     if (self.x < (enemy.x + enemy.width) &&
+        //         self.y < enemy.y &&
+        //         self.x + self.width > enemy.x &&
+        //         self.y + self.height > enemy.y && enemy.updown === -1) {
+        //         enemy.updown = 0;
+        //         enemy.colisionPlatform = true;
+        //         //self.colisionEnemy = true;
+        //         //enemy.removeEnemy()
+        //         //enemies.splice(i, 1)
+        //     }else if(self.x + self.width < enemy.x){
+        //         enemy.colisionPlatform = false;
+        //     }
 
             //caida izquierda enemigo
             // if (self.x > enemy.x + enemy.width && enemy.colisionPlatform) {
@@ -82,7 +81,7 @@ function CreatePlataform(x, y, width, parent, player, enemies) {
             //     }
             // }
 
-        })
+        //})
 
         // if (this.x < (enemy.x + enemy.width) &&
         //     this.y < enemy.y &&

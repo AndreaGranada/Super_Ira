@@ -14,12 +14,14 @@ var enemies = []
 // console.log(enemy)
 
 function createEnemy() {
-  var enemy = new CreateEnemy(0, 630, board)
+  var enemy = new CreateEnemy(0, 640, board, platforms)
   enemy.insertEnemy()
   enemies.push(enemy)
 }
 
 var enemyGenTimer = setInterval(createEnemy, 5000)
+
+
 
 // Elementos del tablero
 
@@ -30,6 +32,7 @@ var plataform4 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
 var plataform5 = new CreatePlataform(20, 400, 260, board, iratze, enemies);
 var plataform6 = new CreatePlataform(125, 500, 250, board, iratze, enemies);
 var plataform7 = new CreatePlataform(0, 600, 150, board, iratze, enemies);
+var platforms = [];
 plataform1.insertPlataform();
 plataform2.insertPlataform();
 plataform3.insertPlataform();
@@ -37,6 +40,14 @@ plataform4.insertPlataform();
 plataform5.insertPlataform();
 plataform6.insertPlataform();
 plataform7.insertPlataform();
+
+platforms.push(plataform1);
+platforms.push(plataform2);
+platforms.push(plataform3);
+platforms.push(plataform4);
+platforms.push(plataform5);
+platforms.push(plataform6);
+platforms.push(plataform7);
 
 var pipeline1 = new CreatePipelines(0, 615, board, iratze, enemies);
 var pipeline2 = new CreatePipelines(415, 20, board, iratze, enemies);
@@ -49,7 +60,7 @@ tuberia1.style.transform = 'rotate(180deg)'
 
 
 
-
+//colisiones plataformas y tuberias con Ira
 var collisionPlataform1 = setInterval(function () {
   plataform1.checkCollision();
   plataform2.checkCollision();
@@ -62,8 +73,14 @@ var collisionPlataform1 = setInterval(function () {
   pipeline2.checkCollision();
   //plataform1.checkCollisionEnemies();
   //enemy.checkCollision();
-  
+}, 50)
 
+//colisiones de enemigos con plataformas
+
+var collisionPlataformEnemies = setInterval(function(){
+  enemies.forEach(function(enemy){
+    enemy.checkCollision();
+  })
 }, 50)
 
 // Controles
