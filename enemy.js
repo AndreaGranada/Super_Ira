@@ -11,6 +11,7 @@ function CreateEnemy(x, y, parent) {
   this.isDead = false;
   this.sprite;
   this.floor = 15;
+  this.colisionPlatform = false;
 
   this.insertEnemy = function () {
     var newEnemy = document.createElement('div');
@@ -31,6 +32,10 @@ function CreateEnemy(x, y, parent) {
       self.sprite.style.left = self.x + 'px';
     } else {
       self.direction *= -1;
+    }
+console.log(self.colisionPlatform)
+    if(!self.colisionPlatform){
+      self.updown = -1
     }
 
     if (nextY >= self.floor) {

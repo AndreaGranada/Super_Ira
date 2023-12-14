@@ -55,29 +55,32 @@ function CreatePlataform(x, y, width, parent, player, enemies) {
                 self.x + self.width > enemy.x &&
                 self.y + self.height > enemy.y && enemy.updown === -1) {
                 enemy.updown = 0;
-                self.colisionEnemy = true;
+                enemy.colisionPlatform = true;
+                //self.colisionEnemy = true;
                 //enemy.removeEnemy()
                 //enemies.splice(i, 1)
+            }else if(self.x + self.width < enemy.x){
+                enemy.colisionPlatform = false;
             }
 
             //caida izquierda enemigo
-            if (self.x > enemy.x + enemy.width && self.colisionEnemy) {
-                if (enemy.updown !== +1) {
-                    enemy.updown = -1;
-                    self.colisionEnemy = false;
-                    console.log('caida izq')
-                }
+            // if (self.x > enemy.x + enemy.width && enemy.colisionPlatform) {
+            //     if (enemy.updown !== +1) {
+            //         //enemy.updown = -1;
+            //         enemy.colisionPlatform = false;
+            //         console.log('caida izq')
+            //     }
 
-            }
+            // }
 
-            //caida derecha enemigo
-            if (self.x + self.width < enemy.x && self.colisionEnemy) {
-                if (enemy.updown !== +1) {
-                    enemy.updown = -1;
-                    self.colisionEnemy = false;
-                    console.log('caida derecha')
-                }
-            }
+            // //caida derecha enemigo
+            // if (self.x + self.width < enemy.x && enemy.colisionPlatform) {
+            //     if (enemy.updown !== +1) {
+            //         //enemy.updown = -1;
+            //         enemy.colisionPlatform = false;
+            //         console.log('caida derecha')
+            //     }
+            // }
 
         })
 
