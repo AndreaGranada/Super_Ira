@@ -35,7 +35,7 @@ function CreatePlayer(x, y, parent, enemies) {
     }
 
   }
-  
+
   this.checkCollision = function () {
     if (enemies && enemies.length > 0) {
       enemies.forEach(function (enemy) {
@@ -43,7 +43,12 @@ function CreatePlayer(x, y, parent, enemies) {
           self.y < enemy.y + enemy.height &&
           self.x + self.width > enemy.x &&
           self.y + self.height > enemy.y) {
-          console.log("muerto")
+
+          //self.isDead = true
+
+      //     enemies.forEach(function(enemy){
+      //   clearInterval(enemy.timerId);
+      // })
           //enemy.removeEnemy()
           //enemies.splice(i, 1)
         }

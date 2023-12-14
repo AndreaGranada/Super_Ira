@@ -15,7 +15,7 @@ iratze.insertPlayer();
 // console.log(enemy)
 
 function createEnemy() {
-  var enemy = new CreateEnemy(0, 640, board, platforms)
+  var enemy = new CreateEnemy(0, 640, board, platforms, pipeline2)
   enemy.insertEnemy()
   enemies.push(enemy)
 }
@@ -51,8 +51,8 @@ platforms.push(plataform5);
 platforms.push(plataform6);
 platforms.push(plataform7);
 
-var pipeline1 = new CreatePipelines(0, 615, board, iratze, enemies);
-var pipeline2 = new CreatePipelines(415, 20, board, iratze, enemies);
+var pipeline1 = new CreatePipelines(-10, 607, board, iratze, enemies);
+var pipeline2 = new CreatePipelines(415, 13, board, iratze, enemies);
 pipeline1.insertPipeline();
 pipeline2.insertPipeline();
 
@@ -63,7 +63,7 @@ tuberia1.style.transform = 'rotate(180deg)'
 
 
 //colisiones plataformas y tuberias con Ira
-var collisionPlataform1 = setInterval(function () {
+var collisionPlataform = setInterval(function () {
   plataform1.checkCollision();
   plataform2.checkCollision();
   plataform3.checkCollision();
@@ -157,6 +157,9 @@ function playerMovement() {
   if(iratze.isDead === true) {
     alert('GAME OVER')
     clearInterval(timerId)
+    clearInterval(collisionPlataformEnemies)
+    clearInterval(collisionPlataform)
+    clearInterval(enemyGenTimer)
     //clearInterval(timerIdEnemy)
    /* enemies.forEach(function(enemy) {
       enemy.removeEnemy()

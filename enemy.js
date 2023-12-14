@@ -1,4 +1,4 @@
-function CreateEnemy(x, y, parent, platforms) {
+function CreateEnemy(x, y, parent, platforms, pipeline) {
   var self = this;
   this.x = x;
   this.y = y;
@@ -8,10 +8,11 @@ function CreateEnemy(x, y, parent, platforms) {
   this.updown = -1;
   this.speed = 2;
   this.jumpspeed = 6;
-  this.isDead = false;
+  this.gameOver = false;
   this.sprite;
   this.floor = 15;
   this.colisionPlatform = false;
+  this.colisionPipeline = false;
 
   this.insertEnemy = function () {
     var newEnemy = document.createElement('div');
@@ -37,6 +38,17 @@ function CreateEnemy(x, y, parent, platforms) {
       self.y += self.jumpspeed * self.updown;
       self.sprite.style.bottom = self.y + 'px';
     } //Para aplicar la caida
+
+    //teletransporte
+   
+
+    if(self.y < 20 && self.x > 430){
+      self.y = 640
+      self.x = 0
+      self.updown = -1
+      console.log("teleport")
+    }
+    
   };
 
   this.randomDirection = function () {
@@ -50,6 +62,8 @@ function CreateEnemy(x, y, parent, platforms) {
   this.timerIdEnemy = setInterval(this.randomDirection, 500);
 
   //Collison with plataform7
+
+
 
   this.checkCollision = function () {
 
@@ -66,7 +80,7 @@ function CreateEnemy(x, y, parent, platforms) {
       if (self.updown !== +1) {
         self.updown = -1;
         self.colisionPlatform = false;
-        console.log('caida izq')
+       
       }
 
     }
@@ -76,164 +90,225 @@ function CreateEnemy(x, y, parent, platforms) {
       if (self.updown !== +1) {
         self.updown = -1;
         self.colisionPlatform = false;
-        console.log('caida derecha')
-      }
-    }
-    
-    //colision con plataform6
-
-    if (self.y < platforms[6].y && self.y > platforms[5].y) {
-      if (platforms[5].x < (self.x + self.width) &&
-        platforms[5].y < self.y &&
-        platforms[5].x + platforms[5].width > self.x &&
-        platforms[5].y + platforms[5].height > self.y && self.updown === -1) {
-        self.updown = 0;
-        self.colisionPlatform = true;
-      }
-
-      //caida izquierda enemigo
-      if (platforms[5].x > self.x + self.width && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida izq')
-        }
-
-      }
-
-      //caida derecha enemigo
-      if (platforms[5].x + platforms[5].width < self.x && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida derecha')
-        }
+       
       }
     }
 
-    //colision con plataform5
+    for (let i = 0; i < platforms.length - 1; i++) {
 
-    if (self.y < platforms[5].y && self.y > platforms[4].y) {
-      if (platforms[4].x < (self.x + self.width) &&
-        platforms[4].y < self.y &&
-        platforms[4].x + platforms[4].width > self.x &&
-        platforms[4].y + platforms[4].height > self.y && self.updown === -1) {
-        self.updown = 0;
-        self.colisionPlatform = true;
-      }
-
-      //caida izquierda enemigo
-      if (platforms[4].x > self.x + self.width && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida izq')
+      if (self.y < platforms[i + 1].y && self.y > platforms[i].y) {
+        if (platforms[i].x < (self.x + self.width) &&
+          platforms[i].y < self.y &&
+          platforms[i].x + platforms[i].width > self.x &&
+          platforms[i].y + platforms[i].height > self.y && self.updown === -1) {
+          self.updown = 0;
+          self.colisionPlatform = true;
         }
 
-      }
+        //caida izquierda enemigo
+        if (platforms[i].x > self.x + self.width && self.colisionPlatform) {
+          if (self.updown !== +1) {
+            self.updown = -1;
+            self.colisionPlatform = false;
+            console.log('caida izq')
+          }
 
-      //caida derecha enemigo
-      if (platforms[4].x + platforms[4].width < self.x && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida derecha')
+        }
+
+        //caida derecha enemigo
+        if (platforms[i].x + platforms[i].width < self.x && self.colisionPlatform) {
+          if (self.updown !== +1) {
+            self.updown = -1;
+            self.colisionPlatform = false;
+            console.log('caida derecha')
+          }
         }
       }
+
+      //colision con tuberia
+
+      if (pipeline.x < (self.x + self.width) &&
+      pipeline.y < self.y &&
+      pipeline.x + pipeline.width > self.x &&
+      pipeline.y + pipeline.height > self.y && self.updown === -1) {
+      self.updown = 0;
+      self.colisionPipeline = true;
     }
 
-    //colision con plataform4
-
-    if (self.y < platforms[4].y && self.y > platforms[3].y) {
-      if (platforms[3].x < (self.x + self.width) &&
-        platforms[3].y < self.y &&
-        platforms[3].x + platforms[3].width > self.x &&
-        platforms[3].y + platforms[3].height > self.y && self.updown === -1) {
-        self.updown = 0;
-        self.colisionPlatform = true;
+    //caida izquierda enemigo
+    if (pipeline.x > self.x + self.width && self.colisionPipeline) {
+      if (self.updown !== +1) {
+        self.updown = -1;
+        self.colisionPipeline = false;
+       
       }
 
-      //caida izquierda enemigo
-      if (platforms[3].x > self.x + self.width && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida izq')
-        }
-
-      }
-
-      //caida derecha enemigo
-      if (platforms[3].x + platforms[3].width < self.x && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida derecha')
-        }
-      }
     }
 
-    //colision con plataform3
-
-    if (self.y < platforms[3].y && self.y > platforms[2].y) {
-      if (platforms[2].x < (self.x + self.width) &&
-        platforms[2].y < self.y &&
-        platforms[2].x + platforms[2].width > self.x &&
-        platforms[2].y + platforms[2].height > self.y && self.updown === -1) {
-        self.updown = 0;
-        self.colisionPlatform = true;
-      }
-
-      //caida izquierda enemigo
-      if (platforms[2].x > self.x + self.width && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida izq')
-        }
-
-      }
-
-      //caida derecha enemigo
-      if (platforms[2].x + platforms[2].width < self.x && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida derecha')
-        }
+    //caida derecha enemigo
+    if (pipeline.x + pipeline.width < self.x && self.colisionPipeline) {
+      if (self.updown !== +1) {
+        self.updown = -1;
+        self.colisionPipeline = false;
+       
       }
     }
-
-    //colision con plataform2
-
-    if (self.y < platforms[2].y && self.y > platforms[1].y) {
-      if (platforms[1].x < (self.x + self.width) &&
-        platforms[1].y < self.y &&
-        platforms[1].x + platforms[1].width > self.x &&
-        platforms[1].y + platforms[1].height > self.y && self.updown === -1) {
-        self.updown = 0;
-        self.colisionPlatform = true;
-      }
-
-      //caida izquierda enemigo
-      if (platforms[1].x > self.x + self.width && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida izq')
-        }
-
-      }
-
-      //caida derecha enemigo
-      if (platforms[1].x + platforms[1].width < self.x && self.colisionPlatform) {
-        if (self.updown !== +1) {
-          self.updown = -1;
-          self.colisionPlatform = false;
-          console.log('caida derecha')
-        }
-      }
     }
+
+    // //colision con plataform6
+
+    // if (self.y < platforms[6].y && self.y > platforms[5].y) {
+    //   if (platforms[5].x < (self.x + self.width) &&
+    //     platforms[5].y < self.y &&
+    //     platforms[5].x + platforms[5].width > self.x &&
+    //     platforms[5].y + platforms[5].height > self.y && self.updown === -1) {
+    //     self.updown = 0;
+    //     self.colisionPlatform = true;
+    //   }
+
+    //   //caida izquierda enemigo
+    //   if (platforms[5].x > self.x + self.width && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida izq')
+    //     }
+
+    //   }
+
+    //   //caida derecha enemigo
+    //   if (platforms[5].x + platforms[5].width < self.x && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida derecha')
+    //     }
+    //   }
+    // }
+
+    // //colision con plataform5
+
+    // if (self.y < platforms[5].y && self.y > platforms[4].y) {
+    //   if (platforms[4].x < (self.x + self.width) &&
+    //     platforms[4].y < self.y &&
+    //     platforms[4].x + platforms[4].width > self.x &&
+    //     platforms[4].y + platforms[4].height > self.y && self.updown === -1) {
+    //     self.updown = 0;
+    //     self.colisionPlatform = true;
+    //   }
+
+    //   //caida izquierda enemigo
+    //   if (platforms[4].x > self.x + self.width && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida izq')
+    //     }
+
+    //   }
+
+    //   //caida derecha enemigo
+    //   if (platforms[4].x + platforms[4].width < self.x && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida derecha')
+    //     }
+    //   }
+    //}
+
+    // //colision con plataform4
+
+    // if (self.y < platforms[4].y && self.y > platforms[3].y) {
+    //   if (platforms[3].x < (self.x + self.width) &&
+    //     platforms[3].y < self.y &&
+    //     platforms[3].x + platforms[3].width > self.x &&
+    //     platforms[3].y + platforms[3].height > self.y && self.updown === -1) {
+    //     self.updown = 0;
+    //     self.colisionPlatform = true;
+    //   }
+
+    //   //caida izquierda enemigo
+    //   if (platforms[3].x > self.x + self.width && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida izq')
+    //     }
+
+    //   }
+
+    //   //caida derecha enemigo
+    //   if (platforms[3].x + platforms[3].width < self.x && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida derecha')
+    //     }
+    //   }
+    // }
+
+    // //colision con plataform3
+
+    // if (self.y < platforms[3].y && self.y > platforms[2].y) {
+    //   if (platforms[2].x < (self.x + self.width) &&
+    //     platforms[2].y < self.y &&
+    //     platforms[2].x + platforms[2].width > self.x &&
+    //     platforms[2].y + platforms[2].height > self.y && self.updown === -1) {
+    //     self.updown = 0;
+    //     self.colisionPlatform = true;
+    //   }
+
+    //   //caida izquierda enemigo
+    //   if (platforms[2].x > self.x + self.width && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida izq')
+    //     }
+
+    //   }
+
+    //   //caida derecha enemigo
+    //   if (platforms[2].x + platforms[2].width < self.x && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida derecha')
+    //     }
+    //   }
+    // }
+
+    // //colision con plataform2
+
+    // if (self.y < platforms[2].y && self.y > platforms[1].y) {
+    //   if (platforms[1].x < (self.x + self.width) &&
+    //     platforms[1].y < self.y &&
+    //     platforms[1].x + platforms[1].width > self.x &&
+    //     platforms[1].y + platforms[1].height > self.y && self.updown === -1) {
+    //     self.updown = 0;
+    //     self.colisionPlatform = true;
+    //   }
+
+    //   //caida izquierda enemigo
+    //   if (platforms[1].x > self.x + self.width && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida izq')
+    //     }
+
+    //   }
+
+    //   //caida derecha enemigo
+    //   if (platforms[1].x + platforms[1].width < self.x && self.colisionPlatform) {
+    //     if (self.updown !== +1) {
+    //       self.updown = -1;
+    //       self.colisionPlatform = false;
+    //       console.log('caida derecha')
+    //     }
+    //   }
+    // }
   }
 
   // this.checkCollision = function () {

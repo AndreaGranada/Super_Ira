@@ -35,8 +35,8 @@
 
 .pipelines{
     position:absolute;
-    z-index: 2;
+    z-index: 4;
     background-image: url(./img/tubo.png);
     background-repeat: no-repeat;
-   background-size: cover;
+    background-size: cover;
 }
