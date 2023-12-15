@@ -22,8 +22,6 @@ function CreateStar(x, y, parent) {
         self.y = self.places[randomPlace][1];
         self.sprite.style.left = self.x + 'px'
         self.sprite.style.bottom = self.y + 'px'
-        
-        console.log(self.x)
     }
   }
   

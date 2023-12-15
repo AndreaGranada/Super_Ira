@@ -27,9 +27,9 @@ function createEnemy() {
   enemies.push(enemy)
 }
 
-var enemyGenTimer = setInterval(createEnemy, 60000)
-
-
+function enemyGenTimer() {
+  var enemyGenTimer = setInterval(createEnemy, 60000)
+}
 
 
 
@@ -89,11 +89,11 @@ var collisionPlataform = setInterval(function () {
 
 //colisiones de enemigos con plataformas
 
- var collisionPlataformEnemies = setInterval(function(){
-   enemies.forEach(function(enemy){
-     enemy.checkCollision();
-   })
- }, 50)
+var collisionPlataformEnemies = setInterval(function () {
+  enemies.forEach(function (enemy) {
+    enemy.checkCollision();
+  })
+}, 50)
 
 // Controles
 
@@ -163,16 +163,14 @@ var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
   iratze.move();
-  if(iratze.isDead === true) {
-    alert('GAME OVER')
+  if (iratze.isDead === true) {
+    var gameover = document.getElementById("gameover");
+    gameover.style.display = "block"
     clearInterval(timerId)
-    clearInterval(collisionPlataformEnemies)
-    clearInterval(collisionPlataform)
+    //clearInterval(collisionPlataformEnemies)
+    //clearInterval(collisionPlataform)
     clearInterval(enemyGenTimer)
     //clearInterval(timerIdEnemy)
-   /* enemies.forEach(function(enemy) {
-      enemy.removeEnemy()
-    })*/
   }
 }
 
@@ -185,12 +183,42 @@ window.addEventListener('keyup', function (e) {
   }
 });
 
+//PANTALLAS DE INICIO Y DE GAME OVER
+
+var start = document.getElementById("play")
+
+start.addEventListener("click", function () {
+  start.parentNode.style.display = "none"
+  createEnemy();
+  enemyGenTimer();
+})
+
+var restart = document.getElementById("restart")
+
+restart.addEventListener("click", function () {
+  restart.parentNode.style.display = "none"
+  iratze.isDead = false;
+  iratze.x = 243
+  iratze.y = 12
+  for (let i = 0; i < enemies.length; i++) {
+    enemies[i].removeEnemy()
+  }
+
+  enemies.splice(0, enemies.length)
+
+  enemyGenTimer();
+  var timerId = setInterval(playerMovement, 50)
+  console.log(enemies)
+  //createEnemy();
+  //var enemyGenTimer = setInterval(createEnemy, 60000)
+})
+
 // Movimiento Enemy
 
 // var timerIdEnemy = setInterval(enemyMovement, 500)
 
 // function enemyMovement() {
-  
+
 //   var random = Math.floor(Math.random() * 10);
 //     if (random > 8) {
 //       enemy.direction *= -1
@@ -199,13 +227,13 @@ window.addEventListener('keyup', function (e) {
 //     }
 
 
-  /*if(player.isDead === true) {
-    alert('GAME OVER')
-    clearInterval(timerId)
-    clearInterval(enemyGenTimer)
-    enemies.forEach(function(enemy) {
-      enemy.removeEnemy()
-    })
-  }*/
+/*if(player.isDead === true) {
+  alert('GAME OVER')
+  clearInterval(timerId)
+  clearInterval(enemyGenTimer)
+  enemies.forEach(function(enemy) {
+    enemy.removeEnemy()
+  })
+}*/
 
-  export {createEnemy}
+export { createEnemy }

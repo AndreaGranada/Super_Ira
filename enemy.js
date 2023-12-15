@@ -40,15 +40,15 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
     } //Para aplicar la caida
 
     //teletransporte
-   
 
-    if(self.y < 20 && self.x > 430){
+
+    if (self.y < 20 && self.x > 430) {
       self.y = 640
       self.x = 0
       self.updown = -1
       console.log("teleport")
     }
-    
+
   };
 
   this.randomDirection = function () {
@@ -80,7 +80,7 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
       if (self.updown !== +1) {
         self.updown = -1;
         self.colisionPlatform = false;
-       
+
       }
 
     }
@@ -90,7 +90,7 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
       if (self.updown !== +1) {
         self.updown = -1;
         self.colisionPlatform = false;
-       
+
       }
     }
 
@@ -128,31 +128,39 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
       //colision con tuberia
 
       if (pipeline.x < (self.x + self.width) &&
-      pipeline.y < self.y &&
-      pipeline.x + pipeline.width > self.x &&
-      pipeline.y + pipeline.height > self.y && self.updown === -1) {
-      self.updown = 0;
-      self.colisionPipeline = true;
-    }
-
-    //caida izquierda enemigo
-    if (pipeline.x > self.x + self.width && self.colisionPipeline) {
-      if (self.updown !== +1) {
-        self.updown = -1;
-        self.colisionPipeline = false;
-       
+        pipeline.y < self.y &&
+        pipeline.x + pipeline.width > self.x &&
+        pipeline.y + pipeline.height > self.y && self.updown === -1) {
+        self.updown = 0;
+        self.colisionPipeline = true;
       }
 
-    }
+      //caida izquierda enemigo
+      if (pipeline.x > self.x + self.width && self.colisionPipeline) {
+        if (self.updown !== +1) {
+          self.updown = -1;
+          self.colisionPipeline = false;
 
-    //caida derecha enemigo
-    if (pipeline.x + pipeline.width < self.x && self.colisionPipeline) {
-      if (self.updown !== +1) {
-        self.updown = -1;
-        self.colisionPipeline = false;
-       
+        }
+
       }
-    }
+
+      //caida derecha enemigo
+      if (pipeline.x + pipeline.width < self.x && self.colisionPipeline) {
+        if (self.updown !== +1) {
+          self.updown = -1;
+          self.colisionPipeline = false;
+
+        }
+      }
+
+      this.removeEnemy = function() {
+        parent.removeChild(this.sprite)
+        //clearInterval(this.timerId )
+        //enemies = enemies.filter(function(enemy) {
+        //  return enemy !== self.sprite
+        //})
+      }
     }
 
     // //colision con plataform6

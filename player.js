@@ -48,9 +48,6 @@ function CreatePlayer(x, y, parent, enemies, star) {
 
           self.isDead = true
 
-          enemies.forEach(function(enemy){
-          clearInterval(enemy.timerId);
-           })
           //enemy.removeEnemy()
           //enemies.splice(i, 1)
         }
