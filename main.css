@@ -8,7 +8,6 @@
 }
 
 .player{
-    background-color: red;
     background-image: url(./img/super_ira.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -16,7 +15,7 @@
     width: 50px;
     position: absolute;
     left: 243px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .plataform{
@@ -36,8 +35,52 @@
 
 .pipelines{
     position:absolute;
-    z-index: 2;
+    z-index: 4;
     background-image: url(./img/tubo.png);
     background-repeat: no-repeat;
-   background-size: cover;
+    background-size: cover;
+}
+
+.star{
+    position: absolute;
+    z-index: 1;
+    background-image: url(./img/chocolatina.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+}
+
+#start{
+    background-color: red;
+    position: absolute;
+    height: 700px;
+    width: 500px;
+    z-index: 5;
+}
+
+#play{
+    position: absolute;
+    left: 220px;
+    z-index: 5;
+}
+
+#gameover{
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    height: 700px;
+    width: 500px;
+    z-index: 5;
+    color: white;
+    display: none;
+}
+
+#restart{
+    position: absolute;
+    left: 220px;
+    z-index: 5;
+}
+
+h1{
+    text-align: center;
 }

@@ -1,4 +1,6 @@
-function CreatePlayer(x, y, parent, enemies) {
+import { createEnemy } from "./index.js";
+
+function CreatePlayer(x, y, parent, enemies, star) {
   var self = this;
   this.x = x;
   this.y = y;
@@ -37,19 +39,27 @@ function CreatePlayer(x, y, parent, enemies) {
   }
 
   this.checkCollision = function () {
-    console.log(enemies)
-    enemies.forEach(function (enemy, i) {
-      if (self.x < (enemy.x + enemy.width) &&
-        self.y < enemy.y + enemy.height &&
-        self.x + self.width > enemy.x &&
-        self.y + self.height > enemy.y) {
-        //enemy.removeEnemy()
-        //enemies.splice(i, 1)
-      }
-    })
+    if (enemies && enemies.length > 0) {
+      enemies.forEach(function (enemy) {
+        if (self.x < (enemy.x + enemy.width) &&
+          self.y < enemy.y + enemy.height &&
+          self.x + self.width > enemy.x &&
+          self.y + self.height > enemy.y) {
 
+          self.isDead = true
 
-
+          //enemy.removeEnemy()
+          //enemies.splice(i, 1)
+        }
+      })
+    }
+    if (self.x < (star.x + star.width) &&
+      self.y < star.y + star.height &&
+      self.x + self.width > star.x &&
+      self.y + self.height > star.y) {
+      star.respawn();
+      createEnemy();
+    }
   }
 }
 

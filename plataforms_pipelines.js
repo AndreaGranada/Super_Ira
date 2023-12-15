@@ -119,8 +119,8 @@ function CreatePipelines(x, y, parent, player, enemy) {
     var self = this;
     this.x = x;
     this.y = y;
-    this.width = 85;
-    this.height = 64;
+    this.width = 110;
+    this.height = 83;
     this.sprite
     this.insertPipeline = function () {
         var newPipeline = document.createElement('div');
