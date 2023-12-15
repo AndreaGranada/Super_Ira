@@ -1,10 +1,17 @@
 import { CreatePlayer } from "./player.js";
 import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
+import { CreateStar } from "./star.js";
 var board = document.getElementById('board');
 var enemies = []
 
-var iratze = new CreatePlayer(243, 12, board, enemies);
+//crear estrella
+
+var star = new CreateStar(400, 225, board)
+
+star.insertStar();
+
+var iratze = new CreatePlayer(243, 12, board, enemies, star);
 
 iratze.insertPlayer();
 
@@ -20,7 +27,9 @@ function createEnemy() {
   enemies.push(enemy)
 }
 
-var enemyGenTimer = setInterval(createEnemy, 5000)
+var enemyGenTimer = setInterval(createEnemy, 60000)
+
+
 
 
 
@@ -121,7 +130,7 @@ window.addEventListener('keydown', function (e) {
           setTimeout(function () {
             iratze.updown = -1;
             saltoHabilitado = true;
-          }, 1000)
+          }, 900)
         }
       }
 
@@ -138,7 +147,7 @@ window.addEventListener('keydown', function (e) {
       setTimeout(function () {
         iratze.updown = -1;
         saltoHabilitado = true;
-      }, 1000)
+      }, 900)
     }
 
     if (iratze.updown === 0) {
@@ -198,3 +207,5 @@ window.addEventListener('keyup', function (e) {
       enemy.removeEnemy()
     })
   }*/
+
+  export {createEnemy}

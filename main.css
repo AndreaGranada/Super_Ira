@@ -15,7 +15,7 @@
     width: 50px;
     position: absolute;
     left: 243px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .plataform{
@@ -39,4 +39,12 @@
     background-image: url(./img/tubo.png);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.star{
+    position: absolute;
+    z-index: 1;
+    background-image: url(./img/chocolatina.png);
+    width: 20px;
+    height: 20px;
 }

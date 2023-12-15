@@ -1,4 +1,6 @@
-function CreatePlayer(x, y, parent, enemies) {
+import { createEnemy } from "./index.js";
+
+function CreatePlayer(x, y, parent, enemies, star) {
   var self = this;
   this.x = x;
   this.y = y;
@@ -44,18 +46,23 @@ function CreatePlayer(x, y, parent, enemies) {
           self.x + self.width > enemy.x &&
           self.y + self.height > enemy.y) {
 
-          //self.isDead = true
+          self.isDead = true
 
-      //     enemies.forEach(function(enemy){
-      //   clearInterval(enemy.timerId);
-      // })
+          enemies.forEach(function(enemy){
+          clearInterval(enemy.timerId);
+           })
           //enemy.removeEnemy()
           //enemies.splice(i, 1)
         }
       })
     }
-
-
+    if (self.x < (star.x + star.width) &&
+      self.y < star.y + star.height &&
+      self.x + self.width > star.x &&
+      self.y + self.height > star.y) {
+      star.respawn();
+      createEnemy();
+    }
   }
 }
 
