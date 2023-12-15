@@ -166,7 +166,7 @@ function playerMovement() {
   if (iratze.isDead === true) {
     var gameover = document.getElementById("gameover");
     gameover.style.display = "block"
-    clearInterval(timerId)
+    //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
     clearInterval(enemyGenTimer)
@@ -200,6 +200,8 @@ restart.addEventListener("click", function () {
   iratze.isDead = false;
   iratze.x = 243
   iratze.y = 12
+  iratze.sprite.style.left = iratze.x + 'px'
+  iratze.sprite.style.bottom = iratze.y + 'px'
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].removeEnemy()
   }
@@ -207,7 +209,6 @@ restart.addEventListener("click", function () {
   enemies.splice(0, enemies.length)
 
   enemyGenTimer();
-  var timerId = setInterval(playerMovement, 50)
   console.log(enemies)
   //createEnemy();
   //var enemyGenTimer = setInterval(createEnemy, 60000)
