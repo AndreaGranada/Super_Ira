@@ -2,6 +2,18 @@ import { CreatePlayer } from "./player.js";
 import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 import { CreateStar } from "./star.js";
+
+var noGaming = true;
+
+var backgroundMusic = new Audio("./sounds/background-music.mp3")
+backgroundMusic.volume = 0.1
+
+backgroundMusic.play()
+
+var gameovermusic = new Audio("./sounds/GameOver.ogg")
+
+var jumpsound = new Audio("./sounds/jump.mp3")
+
 var board = document.getElementById('board');
 var enemies = []
 
@@ -117,7 +129,10 @@ window.addEventListener('keydown', function (e) {
 
     case ' ':
     case 'w':
-      if (saltoHabilitado === true && iratze.updown === 0) {
+      if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
+        jumpsound.currentTime = 0
+        jumpsound.volume = 0.1
+        jumpsound.play()
         saltoHabilitado = false;
         iratze.updown = +1
         console.log(iratze.y)
@@ -141,7 +156,10 @@ window.addEventListener('keydown', function (e) {
   }
 
   if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w']) {
-    if (saltoHabilitado === true && iratze.updown === 0) {
+    if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
+      jumpsound.currentTime = 0
+      jumpsound.volume = 0.1
+      jumpsound.play()
       saltoHabilitado = false;
       iratze.updown = +1
       setTimeout(function () {
@@ -159,6 +177,7 @@ window.addEventListener('keydown', function (e) {
 
 // Movimiento
 var saltoHabilitado = true;
+
 var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
@@ -166,6 +185,11 @@ function playerMovement() {
   if (iratze.isDead === true) {
     var gameover = document.getElementById("gameover");
     gameover.style.display = "block"
+    noGaming = true;
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    gameovermusic.volume = 0.1
+    gameovermusic.play()
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
@@ -189,13 +213,19 @@ var start = document.getElementById("play")
 
 start.addEventListener("click", function () {
   start.parentNode.style.display = "none"
+  backgroundMusic.play()
   createEnemy();
   enemyGenTimer();
+  noGaming = false;
 })
 
 var restart = document.getElementById("restart")
 
 restart.addEventListener("click", function () {
+  noGaming = false;
+  gameovermusic.pause();
+  gameovermusic.currentTime = 0;
+  backgroundMusic.play()
   restart.parentNode.style.display = "none"
   iratze.isDead = false;
   iratze.x = 243
