@@ -14,6 +14,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
   this.isDead = false;
   this.sprite
   this.floor = 15;
+  this.points = 0;
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
     newPlayer.classList.add('player');
@@ -21,6 +22,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
     newPlayer.style.left = this.x + 'px';
     parent.appendChild(newPlayer);
     this.sprite = newPlayer;
+    score.innerText = self.points.toString().padStart(4, '0');
   }
 
   this.move = function () {
@@ -69,8 +71,9 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
             enemy.sprite.style.display = "block"
           }, 10000)
 
-          if (lifes.length != 0){
-          lifes[lifes.length - 1].removeHp()}
+          if (lifes.length != 0) {
+            lifes[lifes.length - 1].removeHp()
+          }
           lifes.pop()
 
           if (self.hp === 0) {
@@ -80,12 +83,16 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
         }
       })
     }
+    
     if (self.x < (star.x + star.width) &&
       self.y < star.y + star.height &&
       self.x + self.width > star.x &&
       self.y + self.height > star.y) {
       star.respawn();
       createEnemy();
+      var score = document.getElementById("score")
+      self.points += 10
+      score.innerText = self.points.toString().padStart(4, '0');
     }
   }
 }

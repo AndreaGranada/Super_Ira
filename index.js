@@ -19,12 +19,6 @@ var board = document.getElementById('board');
 var enemies = []
 var lifes = []
 
-var score = document.getElementById("score")
-
-var points = [ 0, 0, 0, 0];
-
-score.innerText = points.join('')
-
 //crear estrella
 
 var star = new CreateStar(400, 225, board)
