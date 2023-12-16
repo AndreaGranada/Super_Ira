@@ -116,3 +116,11 @@ h1{
     font-size: 45px;
     letter-spacing: 10px;
 }
+
+#cronometro{
+    font-family: 'Pixelify Sans', sans-serif;
+    color: white;
+    position: absolute;
+    font-size: 45px;
+    left: 195px;
+}

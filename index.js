@@ -20,6 +20,33 @@ var enemies = []
 var lifes = []
 var score = document.getElementById("score")
 
+var minutos = 0;
+var segundos = 0;
+
+function actualizarCronometro() {
+  segundos++;
+
+  if (segundos === 60) {
+    segundos = 0;
+    minutos++;
+  }
+
+  var tiempoFormateado =
+    (minutos < 10 ? "0" : "") + minutos + ":" +
+    (segundos < 10 ? "0" : "") + segundos;
+
+  document.getElementById("cronometro").innerText = tiempoFormateado;
+}
+
+function timer() {
+  var timer = setInterval(function () {
+    if (noGaming === false) {
+      actualizarCronometro()
+    }
+  }
+    , 1000);
+}
+
 //crear estrella
 
 var star = new CreateStar(400, 225, board)
@@ -46,12 +73,12 @@ function enemyGenTimer() {
   var enemyGenTimer = setInterval(createEnemy, 60000)
 }
 
-function createLife(){
+function createLife() {
   var x
-  if(lifes.length === 1){
+  if (lifes.length === 1) {
     var x = 50
   }
-  if(lifes.length === 2){
+  if (lifes.length === 2) {
     var x = 100
   }
   var life = new CreateLife(x, board)
@@ -59,8 +86,8 @@ function createLife(){
   lifes.push(life)
 }
 
-function lifeGen(){
-    if(lifes.length < iratze.hp){
+function lifeGen() {
+  if (lifes.length < iratze.hp) {
     createLife();
     lifeGen()
   }
@@ -215,10 +242,12 @@ function playerMovement() {
     gameovermusic.volume = 0.1
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
+    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2,'0') + segundos.toString().padStart(2,'0')
+    
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
-    clearInterval(enemyGenTimer)
+    clearInterval(enemyGenTimer);
     //clearInterval(timerIdEnemy)
   }
 }
@@ -242,6 +271,7 @@ start.addEventListener("click", function () {
   createEnemy();
   enemyGenTimer();
   noGaming = false;
+  timer();
 })
 
 var restart = document.getElementById("restart")
@@ -265,9 +295,14 @@ restart.addEventListener("click", function () {
   iratze.hp = 3
   lifeGen()
   enemyGenTimer();
+  segundos = -1
+  minutos = 0
+  actualizarCronometro()
 
   iratze.points = 0
   score.innerText = iratze.points.toString().padStart(4, '0');
+
+
   //createEnemy();
   //var enemyGenTimer = setInterval(createEnemy, 60000)
 })
