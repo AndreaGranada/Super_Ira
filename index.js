@@ -18,6 +18,7 @@ var jumpsound = new Audio("./sounds/jump.mp3")
 var board = document.getElementById('board');
 var enemies = []
 var lifes = []
+var score = document.getElementById("score")
 
 //crear estrella
 
@@ -213,6 +214,7 @@ function playerMovement() {
     backgroundMusic.currentTime = 0;
     gameovermusic.volume = 0.1
     gameovermusic.play()
+    document.getElementById("points").innerText = iratze.points.toString().padStart(4, '0');
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
@@ -263,6 +265,9 @@ restart.addEventListener("click", function () {
   iratze.hp = 3
   lifeGen()
   enemyGenTimer();
+
+  iratze.points = 0
+  score.innerText = iratze.points.toString().padStart(4, '0');
   //createEnemy();
   //var enemyGenTimer = setInterval(createEnemy, 60000)
 })
