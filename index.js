@@ -2,6 +2,7 @@ import { CreatePlayer } from "./player.js";
 import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 import { CreateStar } from "./star.js";
+import { CreateLife } from "./hp.js"
 
 var noGaming = true;
 
@@ -16,6 +17,35 @@ var jumpsound = new Audio("./sounds/jump.mp3")
 
 var board = document.getElementById('board');
 var enemies = []
+var lifes = []
+var score = document.getElementById("score")
+
+var minutos = 0;
+var segundos = 0;
+
+function actualizarCronometro() {
+  segundos++;
+
+  if (segundos === 60) {
+    segundos = 0;
+    minutos++;
+  }
+
+  var tiempoFormateado =
+    (minutos < 10 ? "0" : "") + minutos + ":" +
+    (segundos < 10 ? "0" : "") + segundos;
+
+  document.getElementById("cronometro").innerText = tiempoFormateado;
+}
+
+function timer() {
+  var timer = setInterval(function () {
+    if (noGaming === false) {
+      actualizarCronometro()
+    }
+  }
+    , 1000);
+}
 
 //crear estrella
 
@@ -23,7 +53,7 @@ var star = new CreateStar(400, 225, board)
 
 star.insertStar();
 
-var iratze = new CreatePlayer(243, 12, board, enemies, star);
+var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes);
 
 iratze.insertPlayer();
 
@@ -42,6 +72,28 @@ function createEnemy() {
 function enemyGenTimer() {
   var enemyGenTimer = setInterval(createEnemy, 60000)
 }
+
+function createLife() {
+  var x
+  if (lifes.length === 1) {
+    var x = 50
+  }
+  if (lifes.length === 2) {
+    var x = 100
+  }
+  var life = new CreateLife(x, board)
+  life.insertLife();
+  lifes.push(life)
+}
+
+function lifeGen() {
+  if (lifes.length < iratze.hp) {
+    createLife();
+    lifeGen()
+  }
+}
+
+lifeGen()
 
 
 
@@ -135,7 +187,6 @@ window.addEventListener('keydown', function (e) {
         jumpsound.play()
         saltoHabilitado = false;
         iratze.updown = +1
-        console.log(iratze.y)
         if (iratze.y === 612) {
           setTimeout(function () {
             iratze.updown = -1;
@@ -190,10 +241,13 @@ function playerMovement() {
     backgroundMusic.currentTime = 0;
     gameovermusic.volume = 0.1
     gameovermusic.play()
+    document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
+    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2,'0') + segundos.toString().padStart(2,'0')
+    
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
-    clearInterval(enemyGenTimer)
+    clearInterval(enemyGenTimer);
     //clearInterval(timerIdEnemy)
   }
 }
@@ -217,6 +271,7 @@ start.addEventListener("click", function () {
   createEnemy();
   enemyGenTimer();
   noGaming = false;
+  timer();
 })
 
 var restart = document.getElementById("restart")
@@ -237,9 +292,17 @@ restart.addEventListener("click", function () {
   }
 
   enemies.splice(0, enemies.length)
-
+  iratze.hp = 3
+  lifeGen()
   enemyGenTimer();
-  console.log(enemies)
+  segundos = -1
+  minutos = 0
+  actualizarCronometro()
+
+  iratze.points = 0
+  score.innerText = iratze.points.toString().padStart(4, '0');
+
+
   //createEnemy();
   //var enemyGenTimer = setInterval(createEnemy, 60000)
 })

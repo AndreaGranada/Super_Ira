@@ -13,6 +13,7 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
   this.floor = 15;
   this.colisionPlatform = false;
   this.colisionPipeline = false;
+  this.collision = false;
 
   this.insertEnemy = function () {
     var newEnemy = document.createElement('div');
@@ -46,7 +47,6 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
       self.y = 640
       self.x = 0
       self.updown = -1
-      console.log("teleport")
     }
 
   };
@@ -110,7 +110,6 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
           if (self.updown !== +1) {
             self.updown = -1;
             self.colisionPlatform = false;
-            console.log('caida izq')
           }
 
         }
@@ -120,7 +119,6 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
           if (self.updown !== +1) {
             self.updown = -1;
             self.colisionPlatform = false;
-            console.log('caida derecha')
           }
         }
       }
