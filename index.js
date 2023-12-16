@@ -242,8 +242,8 @@ function playerMovement() {
     gameovermusic.volume = 0.1
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
-    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2,'0') + segundos.toString().padStart(2,'0')
-    
+    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2,'0') +":"+ segundos.toString().padStart(2,'0')
+    iratze.noGaming = true;
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
@@ -271,6 +271,7 @@ start.addEventListener("click", function () {
   createEnemy();
   enemyGenTimer();
   noGaming = false;
+  iratze.noGaming = false;
   timer();
 })
 
@@ -278,6 +279,7 @@ var restart = document.getElementById("restart")
 
 restart.addEventListener("click", function () {
   noGaming = false;
+  iratze.noGaming = false;
   gameovermusic.pause();
   gameovermusic.currentTime = 0;
   backgroundMusic.play()
