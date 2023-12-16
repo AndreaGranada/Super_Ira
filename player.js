@@ -15,6 +15,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
   this.sprite
   this.floor = 15;
   this.points = 0;
+  this.noGaming = true;
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
     newPlayer.classList.add('player');
@@ -55,9 +56,12 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
           enemy.collision = true;
           self.hp--
 
-          collisionCat.currentTime = 0
-          collisionCat.volume = 0.1
-          collisionCat.play()
+          if (self.noGaming === false) {
+            collisionCat.currentTime = 0
+            collisionCat.volume = 0.1
+            collisionCat.play()
+          }
+
 
           var animation = setInterval(function () {
             if (enemy.sprite.style.display === "block") {
@@ -83,7 +87,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
         }
       })
     }
-    
+
     if (self.x < (star.x + star.width) &&
       self.y < star.y + star.height &&
       self.x + self.width > star.x &&
