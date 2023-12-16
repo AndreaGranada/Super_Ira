@@ -214,7 +214,7 @@ function playerMovement() {
     backgroundMusic.currentTime = 0;
     gameovermusic.volume = 0.1
     gameovermusic.play()
-    document.getElementById("points").innerText = iratze.points.toString().padStart(4, '0');
+    document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
