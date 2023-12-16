@@ -2,6 +2,7 @@ import { CreatePlayer } from "./player.js";
 import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 import { CreateStar } from "./star.js";
+import { CreateLife } from "./hp.js"
 
 var noGaming = true;
 
@@ -16,6 +17,13 @@ var jumpsound = new Audio("./sounds/jump.mp3")
 
 var board = document.getElementById('board');
 var enemies = []
+var lifes = []
+
+var score = document.getElementById("score")
+
+var points = [ 0, 0, 0, 0];
+
+score.innerText = points.join('')
 
 //crear estrella
 
@@ -23,7 +31,7 @@ var star = new CreateStar(400, 225, board)
 
 star.insertStar();
 
-var iratze = new CreatePlayer(243, 12, board, enemies, star);
+var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes);
 
 iratze.insertPlayer();
 
@@ -42,6 +50,28 @@ function createEnemy() {
 function enemyGenTimer() {
   var enemyGenTimer = setInterval(createEnemy, 60000)
 }
+
+function createLife(){
+  var x
+  if(lifes.length === 1){
+    var x = 50
+  }
+  if(lifes.length === 2){
+    var x = 100
+  }
+  var life = new CreateLife(x, board)
+  life.insertLife();
+  lifes.push(life)
+}
+
+function lifeGen(){
+    if(lifes.length < iratze.hp){
+    createLife();
+    lifeGen()
+  }
+}
+
+lifeGen()
 
 
 
@@ -135,7 +165,6 @@ window.addEventListener('keydown', function (e) {
         jumpsound.play()
         saltoHabilitado = false;
         iratze.updown = +1
-        console.log(iratze.y)
         if (iratze.y === 612) {
           setTimeout(function () {
             iratze.updown = -1;
@@ -237,9 +266,9 @@ restart.addEventListener("click", function () {
   }
 
   enemies.splice(0, enemies.length)
-
+  iratze.hp = 3
+  lifeGen()
   enemyGenTimer();
-  console.log(enemies)
   //createEnemy();
   //var enemyGenTimer = setInterval(createEnemy, 60000)
 })
