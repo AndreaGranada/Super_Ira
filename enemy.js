@@ -59,7 +59,12 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
   };
 
   this.timerId = setInterval(this.move, 50);
-  this.timerIdEnemy = setInterval(this.randomDirection, 500);
+  setTimeout
+  setTimeout(function() {
+    self.timerIdEnemy = setInterval(function() {
+      self.randomDirection();
+    }, 500);
+  }, 2500);
 
   //Collison with plataform7
 
