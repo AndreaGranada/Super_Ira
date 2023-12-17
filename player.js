@@ -30,7 +30,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
     var nextX = self.x + self.speed * self.direction;
     var nextY = self.y + self.jumpspeed * self.updown;
 
-    if (nextX >= 0 && nextX <= 485) {
+    if (nextX >= 0 && nextX <= 460) {
       self.x += self.speed * self.direction;
       self.sprite.style.left = self.x + 'px';
     }
