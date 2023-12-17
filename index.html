@@ -7,10 +7,21 @@
     <title>Super Ira</title>
     <link rel="stylesheet" href="./main.css">
     <script type="module" src="./index.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <div id="board">
+
+        <div id="status">
+            <div id="hp"></div>
+            <div id="cronometro">00:00</div>
+            <div id="score"></div>
+        </div>
+
         
         <div id="start">
             <h1>SUPERIRA</h1>
@@ -19,6 +30,8 @@
 
         <div id="gameover">
             <h1>GAMEOVER</h1>
+            <h1 id="points"></h1>
+            <h1 id="time"></h1>
             <button id="restart">RESTART</button>
         </div>
 
