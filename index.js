@@ -129,7 +129,7 @@ var checkKahoot = setInterval(function () {
   if(star.contador===5 && kahoot.controlInsert){
     star.contador = 0;
     kahoot.insertKahoot();
-    console.log("modulo 5")
+    console.log(kahoot)
     kahoot.controlInsert= false
   }
 }, 100)

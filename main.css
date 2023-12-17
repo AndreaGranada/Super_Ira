@@ -105,4 +105,7 @@ h1{
 }
 .super{
     background-image: url(./img/supersuper.png) !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
