@@ -1,10 +1,15 @@
 function CreateStar(x, y, parent) {
     var self = this;
+    this.contador= 0;
     this.x = x;
     this.y = y;
     this.width = 50;
     this.height = 78;
     this.sprite
+    this.controlColission=true
+    this.beforePossitionX = 400;
+    this.beforePossitionY = 225;   
+
     this.insertStar = function () {
       var newStar = document.createElement('div');
       newStar.classList.add('star');
@@ -15,13 +20,22 @@ function CreateStar(x, y, parent) {
     }
 
     this.places = [[170, 125],[150, 125],[400, 225],[280, 325],[50, 425],[160, 525]]
-  
+
     this.respawn = function () {
-        var randomPlace = Math.floor(Math.random() * 7)
+      console.log(self.contador)
+        var randomPlace = Math.floor(Math.random() * 6)
+
+        while(self.places[randomPlace][0]===self.beforePossitionX && self.places[randomPlace][1]===self.beforePossitionY){
+          randomPlace = Math.floor(Math.random() * 6)
+        }
+
         self.x = self.places[randomPlace][0];
         self.y = self.places[randomPlace][1];
         self.sprite.style.left = self.x + 'px'
         self.sprite.style.bottom = self.y + 'px'
+        self.contador++
+        self.beforePossitionX = self.places[randomPlace][0]
+        self.beforePossitionY = self.places[randomPlace][1]
     }
   }
   

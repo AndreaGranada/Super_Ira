@@ -47,8 +47,8 @@
     background-image: url(./img/chocolatina.png);
     background-repeat: no-repeat;
     background-size: cover;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 #start{
@@ -83,4 +83,26 @@
 
 h1{
     text-align: center;
+}
+
+.kahoot{
+    position: absolute;
+    z-index: 1;
+    background-image: url(./img/kahoot.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+}
+.box{
+    position: absolute;
+    z-index: 4;
+    background-image: url(./img/box.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60px;
+    height: 30px;
+}
+.super{
+    background-image: url(./img/supersuper.png) !important;
 }
