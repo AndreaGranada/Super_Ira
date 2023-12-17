@@ -15,6 +15,8 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
   this.colisionPipeline = false;
   this.collision = false;
 
+
+  this.carcel = false
   this.insertEnemy = function () {
     var newEnemy = document.createElement('div');
     newEnemy.classList.add('enemy');
@@ -25,6 +27,7 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
   };
 
   this.move = function () {
+    
     var nextX = self.x + self.speed * self.direction;
     var nextY = self.y + self.jumpspeed * self.updown;
 

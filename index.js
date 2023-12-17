@@ -3,13 +3,15 @@ import { CreatePlataform, CreatePipelines } from "./plataforms_pipelines.js";
 import { CreateEnemy } from "./enemy.js";
 import { CreateStar } from "./star.js";
 import { CreateLife } from "./hp.js"
+import { CreateKahoot } from "./kahoot.js";
+import { CreateBox }  from "./box.js"; 
+
+
 
 var noGaming = true;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
 backgroundMusic.volume = 0.1
-
-backgroundMusic.play()
 
 var gameovermusic = new Audio("./sounds/GameOver.ogg")
 
@@ -47,13 +49,25 @@ function timer() {
     , 1000);
 }
 
+// crear Box
+
+var box = new CreateBox(6, 20, board)
+
+box.insertBox();
+
+// crear Kahoot
+var kahoot = new CreateKahoot(0, 0, board)
+
+
+
+
 //crear estrella
 
 var star = new CreateStar(400, 225, board)
 
 star.insertStar();
 
-var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes);
+var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes, kahoot);
 
 iratze.insertPlayer();
 
@@ -158,6 +172,37 @@ var collisionPlataformEnemies = setInterval(function () {
     enemy.checkCollision();
   })
 }, 50)
+
+//comprobador kahoot
+
+
+var checkKahoot = setInterval(function () {
+  if(star.contador===5 && kahoot.controlInsert){
+    star.contador = 0;
+    kahoot.insertKahoot();
+    console.log(kahoot)
+    kahoot.controlInsert= false
+  }
+}, 100)
+
+//comprobador modeSuperIra
+
+
+var checkIratze = setInterval(function () {
+  if(iratze.superMode===true){
+    if(!document.querySelector(".player").classList.contains("super")){
+      document.querySelector(".player").classList.add("super")
+    }
+  }
+  else{
+   
+    if(document.querySelector(".player").classList.contains("super")){
+      document.querySelector(".player").classList.remove("super")
+    }
+  }
+}, 100)
+
+
 
 // Controles
 
@@ -283,6 +328,7 @@ restart.addEventListener("click", function () {
   gameovermusic.pause();
   gameovermusic.currentTime = 0;
   backgroundMusic.play()
+  star.contador= 0
   restart.parentNode.style.display = "none"
   iratze.isDead = false;
   iratze.x = 243

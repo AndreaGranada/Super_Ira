@@ -1,6 +1,6 @@
 import { createEnemy } from "./index.js";
 
-function CreatePlayer(x, y, parent, enemies, star, lifes) {
+function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   var self = this;
   this.x = x;
   this.y = y;
@@ -16,6 +16,16 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
   this.floor = 15;
   this.points = 0;
   this.noGaming = true;
+  this.superMode = false
+
+  this.superIra = function () {
+    self.superMode = true
+    setTimeout(function () {
+      self.superMode = false
+      kahoot.controlColission = true
+    }, 5000)
+  }
+
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
     newPlayer.classList.add('player');
@@ -54,7 +64,14 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
           enemy.collision === false) {
 
           enemy.collision = true;
-          self.hp--
+          if (self.superMode === false) {
+            self.hp--
+            if (lifes.length != 0) {
+              lifes[lifes.length - 1].removeHp()
+            }
+            lifes.pop()
+          }
+
 
           if (self.noGaming === false) {
             collisionCat.currentTime = 0
@@ -70,20 +87,33 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
           }, 200)
 
           setTimeout(function () {
-            enemy.collision = false
+            if (enemy.x != 10 && enemy.y != 40) {
+              enemy.collision = false
+            }
             clearInterval(animation);
             enemy.sprite.style.display = "block"
           }, 10000)
 
-          if (lifes.length != 0) {
-            lifes[lifes.length - 1].removeHp()
+
+
+          // if (self.hp === 0) {
+          //   self.isDead = true
+          // }
+          //self.y + self.height > enemy.y) {
+          if (self.superMode) {
+            enemy.x = 10
+            enemy.y = 40
+            enemy.speed = 0
+            //enemy.carcel= true
+            enemy.collision = true;
+            var score = document.getElementById("score")
+            self.points += 10
+            score.innerText = self.points.toString().padStart(4, '0');
           }
-          lifes.pop()
 
           if (self.hp === 0) {
             self.isDead = true
           }
-
         }
       })
     }
@@ -91,12 +121,27 @@ function CreatePlayer(x, y, parent, enemies, star, lifes) {
     if (self.x < (star.x + star.width) &&
       self.y < star.y + star.height &&
       self.x + self.width > star.x &&
-      self.y + self.height > star.y) {
+      self.y + self.height > star.y && star.controlColission) {
+      star.controlColission = false;
       star.respawn();
       createEnemy();
       var score = document.getElementById("score")
       self.points += 10
       score.innerText = self.points.toString().padStart(4, '0');
+      kahoot.controlInsert = true
+      setTimeout(function () {
+        star.controlColission = true;
+      }, 1000)
+    }
+
+    if (self.x < (kahoot.x + kahoot.width) &&
+      self.y < kahoot.y + kahoot.height &&
+      self.x + self.width > kahoot.x &&
+      self.y + self.height > kahoot.y && kahoot.controlColission) {
+      kahoot.controlColission = false;
+      kahoot.removeKahoot()
+      console.log("superire")
+      self.superIra()
     }
   }
 }
