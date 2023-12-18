@@ -29,13 +29,13 @@
     position: absolute;
     transform: translateX(-50%);
     animation: walkAnimationDer 1.5s steps(9) infinite;
-
+    z-index: 2;
 }
 
 @keyframes walkAnimationDer {
     0%, 100% {
         background-image: url('./img/derecha/derc1.png');
-        transform: translateX(-50%) scaleY(1);
+        transform: scaleY(1);
     }
     11.11% {
         background-image: url('./img/derecha/derc2.png');
@@ -72,13 +72,13 @@
     position: absolute;
     transform: translateX(-50%);
     animation: walkAnimationIzq 1.5s steps(9) infinite;
-
+    z-index: 2;
 }
 
 @keyframes walkAnimationIzq {
     0%, 100% {
         background-image: url('./img/izquierda/izq1.png');
-        transform: translateX(-50%) scaleY(1);
+        transform: scaleY(1);
     }
     11.11% {
         background-image: url('./img/izquierda/izq2.png');
@@ -258,4 +258,8 @@ h1{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
+}
+
+.preload-images {
+    display: none;
 }

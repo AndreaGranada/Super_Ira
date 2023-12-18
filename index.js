@@ -11,7 +11,7 @@ import { CreateBox } from "./box.js";
 var noGaming = true;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
-backgroundMusic.volume = 0.1
+backgroundMusic.volume = 0.03
 
 var gameovermusic = new Audio("./sounds/GameOver.ogg")
 
@@ -177,11 +177,10 @@ var collisionPlataformEnemies = setInterval(function () {
 
 
 var checkKahoot = setInterval(function () {
-  if (star.contador === 2 && kahoot.controlInsert) {
+  if (star.contador === 5 && kahoot.controlInsert) {
     star.contador = 0;
     kahoot.insertKahoot();
-    console.log(kahoot)
-    kahoot.controlInsert = false
+    kahoot.controlInsert = false;
   }
 }, 100)
 
@@ -190,14 +189,14 @@ var checkKahoot = setInterval(function () {
 
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
-    if (!document.querySelector(".player").classList.contains("super")) {
-      document.querySelector(".player").classList.add("super")
+    if (!document.querySelector(".jugador").classList.contains("super")) {
+      document.querySelector(".jugador").classList.add("super")
     }
   }
   else {
 
-    if (document.querySelector(".player").classList.contains("super")) {
-      document.querySelector(".player").classList.remove("super")
+    if (document.querySelector(".jugador").classList.contains("super")) {
+      document.querySelector(".jugador").classList.remove("super")
     }
   }
 }, 100)
@@ -304,11 +303,12 @@ function playerMovement() {
     noGaming = true;
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
-    gameovermusic.volume = 0.1
+    gameovermusic.volume = 0.03
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
     document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
+    kahoot.removeKahoot()
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
@@ -323,14 +323,14 @@ window.addEventListener('keyup', function (e) {
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
     // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
     iratze.direction = 0;
-
+    if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+      document.querySelector(".jugador").classList.remove("playerDerecha")
+      document.querySelector(".jugador").classList.remove("playerIzquierda")
+      document.querySelector(".jugador").classList.add("player")
+    }
 
   }
-  if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-    document.querySelector(".jugador").classList.remove("playerDerecha")
-    document.querySelector(".jugador").classList.remove("playerIzquierda")
-    document.querySelector(".jugador").classList.add("player")
-  }
+
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER
