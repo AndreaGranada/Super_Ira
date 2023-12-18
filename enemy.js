@@ -62,7 +62,6 @@ function CreateEnemy(x, y, parent, platforms, pipeline) {
   };
 
   this.timerId = setInterval(this.move, 50);
-  setTimeout
   setTimeout(function() {
     self.timerIdEnemy = setInterval(function() {
       self.randomDirection();
