@@ -20,9 +20,11 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
 
   this.superIra = function () {
     self.superMode = true
+    self.speed = 10
     setTimeout(function () {
       self.superMode = false
       kahoot.controlColission = true
+      self.speed = 5
     }, 5000)
   }
 
@@ -54,6 +56,9 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   }
 
   var collisionCat = new Audio("./sounds/cat.mp3")
+  var collisionChoco = new Audio("./sounds/nam.mp3")
+  var collisionKahoot = new Audio("./sounds/bueno.mp3")
+  var iraDead = new Audio("./sounds/fatal.mp3")
 
   this.checkCollision = function () {
     if (enemies && enemies.length > 0) {
@@ -65,8 +70,11 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
           enemy.collision === false) {
 
           enemy.collision = true;
-          if (self.superMode === false) {
+          if (self.superMode === false && self.noGaming === false) {
             self.hp--
+            iraDead.currentTime = 0.1
+            iraDead.volume = 0.99
+            iraDead.play()
             if (lifes.length != 0) {
               lifes[lifes.length - 1].removeHp()
             }
@@ -108,7 +116,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
             //enemy.carcel= true
             enemy.collision = true;
             var score = document.getElementById("score")
-            self.points += 10
+            self.points += 50
             score.innerText = self.points.toString().padStart(4, '0');
           }
 
@@ -124,6 +132,9 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
       self.x + self.width > star.x &&
       self.y + self.height > star.y && star.controlColission) {
       star.controlColission = false;
+      collisionChoco.currentTime = 0.4
+      collisionChoco.volume = 0.99
+      collisionChoco.play()
       star.respawn();
       createEnemy();
       var score = document.getElementById("score")
@@ -140,6 +151,9 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
       self.x + self.width > kahoot.x &&
       self.y + self.height > kahoot.y && kahoot.controlColission) {
       kahoot.controlColission = false;
+      collisionKahoot.currentTime = 0.1
+      collisionKahoot.volume = 0.99
+      collisionKahoot.play()
       kahoot.removeKahoot()
       console.log("superire")
       self.superIra()

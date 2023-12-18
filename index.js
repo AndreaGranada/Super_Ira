@@ -11,7 +11,7 @@ import { CreateBox } from "./box.js";
 var noGaming = true;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
-backgroundMusic.volume = 0.1
+backgroundMusic.volume = 0.03
 
 var gameovermusic = new Audio("./sounds/GameOver.ogg")
 
@@ -177,11 +177,10 @@ var collisionPlataformEnemies = setInterval(function () {
 
 
 var checkKahoot = setInterval(function () {
-  if (star.contador === 2 && kahoot.controlInsert) {
+  if (star.contador === 5 && kahoot.controlInsert) {
     star.contador = 0;
     kahoot.insertKahoot();
-    console.log(kahoot)
-    kahoot.controlInsert = false
+    kahoot.controlInsert = false;
   }
 }, 100)
 
@@ -304,11 +303,12 @@ function playerMovement() {
     noGaming = true;
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
-    gameovermusic.volume = 0.1
+    gameovermusic.volume = 0.03
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
     document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
+    kahoot.removeKahoot()
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
     //clearInterval(collisionPlataform)
