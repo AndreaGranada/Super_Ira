@@ -190,14 +190,14 @@ var checkKahoot = setInterval(function () {
 
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
-    if (!document.querySelector(".player").classList.contains("super")) {
-      document.querySelector(".player").classList.add("super")
+    if (!document.querySelector(".jugador").classList.contains("super")) {
+      document.querySelector(".jugador").classList.add("super")
     }
   }
   else {
 
-    if (document.querySelector(".player").classList.contains("super")) {
-      document.querySelector(".player").classList.remove("super")
+    if (document.querySelector(".jugador").classList.contains("super")) {
+      document.querySelector(".jugador").classList.remove("super")
     }
   }
 }, 100)
@@ -323,14 +323,14 @@ window.addEventListener('keyup', function (e) {
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
     // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
     iratze.direction = 0;
-
+    if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+      document.querySelector(".jugador").classList.remove("playerDerecha")
+      document.querySelector(".jugador").classList.remove("playerIzquierda")
+      document.querySelector(".jugador").classList.add("player")
+    }
 
   }
-  if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-    document.querySelector(".jugador").classList.remove("playerDerecha")
-    document.querySelector(".jugador").classList.remove("playerIzquierda")
-    document.querySelector(".jugador").classList.add("player")
-  }
+
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER

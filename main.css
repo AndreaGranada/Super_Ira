@@ -29,7 +29,7 @@
     position: absolute;
     transform: translateX(-50%);
     animation: walkAnimationDer 1.5s steps(9) infinite;
-
+    z-index: 2;
 }
 
 @keyframes walkAnimationDer {
@@ -72,7 +72,7 @@
     position: absolute;
     transform: translateX(-50%);
     animation: walkAnimationIzq 1.5s steps(9) infinite;
-
+    z-index: 2;
 }
 
 @keyframes walkAnimationIzq {
