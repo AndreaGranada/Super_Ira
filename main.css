@@ -55,6 +55,7 @@
 
 #start{
     background-color: red;
+    background-image: url(./img/INICIO.jpg);
     position: absolute;
     height: 765px;
     width: 500px;
@@ -63,26 +64,47 @@
 
 #play{
     position: absolute;
-    left: 220px;
+    left: 180px;
     z-index: 5;
+    top: 360px;
+    background-color: yellow;
+    padding: 15px 50px;
 }
-
+#play:hover{
+    background-color: white; 
+}
 #gameover{
+    background-image: url(./img/FIN.jpg);
     background-color: rgb(0, 0, 0);
     position: absolute;
     height: 765px;
     width: 500px;
     z-index: 5;
-    color: white;
+    color: black;
     display: none;
+}
+
+.texto{
+    margin-top: 160px;
+    background-color: white;
+    width: 350px;
+    margin-left: 55px;
+    padding: 20px;
 }
 
 #restart{
     position: absolute;
-    left: 215px;
+    left: 180px;
     z-index: 5;
+    top: 430px;
+    background-color: black;
+    color: white;
+    padding: 15px 50px;
 }
-
+#restart:hover{
+    background-color: white; 
+    color: black;
+}
 h1{
     text-align: center;
 }

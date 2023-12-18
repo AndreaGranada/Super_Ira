@@ -177,7 +177,7 @@ var collisionPlataformEnemies = setInterval(function () {
 
 
 var checkKahoot = setInterval(function () {
-  if(star.contador===5 && kahoot.controlInsert){
+  if(star.contador===2 && kahoot.controlInsert){
     star.contador = 0;
     kahoot.insertKahoot();
     console.log(kahoot)
