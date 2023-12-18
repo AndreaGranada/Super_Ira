@@ -4,7 +4,7 @@ import { CreateEnemy } from "./enemy.js";
 import { CreateStar } from "./star.js";
 import { CreateLife } from "./hp.js"
 import { CreateKahoot } from "./kahoot.js";
-import { CreateBox }  from "./box.js"; 
+import { CreateBox } from "./box.js";
 
 
 
@@ -177,11 +177,11 @@ var collisionPlataformEnemies = setInterval(function () {
 
 
 var checkKahoot = setInterval(function () {
-  if(star.contador===2 && kahoot.controlInsert){
+  if (star.contador === 2 && kahoot.controlInsert) {
     star.contador = 0;
     kahoot.insertKahoot();
     console.log(kahoot)
-    kahoot.controlInsert= false
+    kahoot.controlInsert = false
   }
 }, 100)
 
@@ -189,14 +189,14 @@ var checkKahoot = setInterval(function () {
 
 
 var checkIratze = setInterval(function () {
-  if(iratze.superMode===true){
-    if(!document.querySelector(".player").classList.contains("super")){
+  if (iratze.superMode === true) {
+    if (!document.querySelector(".player").classList.contains("super")) {
       document.querySelector(".player").classList.add("super")
     }
   }
-  else{
-   
-    if(document.querySelector(".player").classList.contains("super")){
+  else {
+
+    if (document.querySelector(".player").classList.contains("super")) {
       document.querySelector(".player").classList.remove("super")
     }
   }
@@ -219,9 +219,22 @@ window.addEventListener('keydown', function (e) {
   switch (e.key) {
     case 'a':
       iratze.direction = -1
+      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
+        document.querySelector(".jugador").classList.remove("player")
+        document.querySelector(".jugador").classList.remove("playerDerecha")
+        document.querySelector(".jugador").classList.add("playerIzquierda")
+      }
+
       break
+
     case 'd':
       iratze.direction = +1
+      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+        document.querySelector(".jugador").classList.remove("player")
+        document.querySelector(".jugador").classList.remove("playerIzquierda")
+        document.querySelector(".jugador").classList.add("playerDerecha")
+      }
+
       break
 
     case ' ':
@@ -270,7 +283,14 @@ window.addEventListener('keydown', function (e) {
   }
 })
 
-
+/*var checkImagenOrientacion = setInterval(function(){
+  if(iratze.direction = -1 && iratze.key ){
+    document.querySelector(".player").classList.add("playerIzquierda")
+  }
+  if(iratze.direction = 1){
+    document.querySelector(".player").classList.add("playerDerecha")
+  }
+},100)*/
 // Movimiento
 var saltoHabilitado = true;
 
@@ -287,7 +307,7 @@ function playerMovement() {
     gameovermusic.volume = 0.1
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
-    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2,'0') +":"+ segundos.toString().padStart(2,'0')
+    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
     //clearInterval(timerId)
     //clearInterval(collisionPlataformEnemies)
@@ -303,6 +323,13 @@ window.addEventListener('keyup', function (e) {
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
     // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
     iratze.direction = 0;
+
+
+  }
+  if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+    document.querySelector(".jugador").classList.remove("playerDerecha")
+    document.querySelector(".jugador").classList.remove("playerIzquierda")
+    document.querySelector(".jugador").classList.add("player")
   }
 });
 
@@ -328,8 +355,8 @@ restart.addEventListener("click", function () {
   gameovermusic.pause();
   gameovermusic.currentTime = 0;
   backgroundMusic.play()
-  star.contador= 0
-  restart.parentNode.style.display = "none"
+  star.contador = 0
+  restart.parentNode.parentNode.style.display = "none"
   iratze.isDead = false;
   iratze.x = 243
   iratze.y = 12

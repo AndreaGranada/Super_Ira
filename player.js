@@ -29,6 +29,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
     newPlayer.classList.add('player');
+    newPlayer.classList.add('jugador');
     newPlayer.style.bottom = this.y + 'px';
     newPlayer.style.left = this.x + 'px';
     parent.appendChild(newPlayer);
