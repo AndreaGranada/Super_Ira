@@ -11,7 +11,7 @@ import { CreateBox } from "./box.js";
 var noGaming = true;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
-backgroundMusic.volume = 0.03
+backgroundMusic.volume = 0.008
 
 var gameovermusic = new Audio("./sounds/GameOver.ogg")
 
@@ -303,7 +303,7 @@ function playerMovement() {
     noGaming = true;
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
-    gameovermusic.volume = 0.03
+    gameovermusic.volume = 0.008
     gameovermusic.play()
     document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
     document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
