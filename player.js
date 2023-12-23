@@ -103,17 +103,10 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
             enemy.sprite.style.display = "block"
           }, 10000)
 
-
-
-          // if (self.hp === 0) {
-          //   self.isDead = true
-          // }
-          //self.y + self.height > enemy.y) {
           if (self.superMode) {
             enemy.x = 10
             enemy.y = 40
             enemy.speed = 0
-            //enemy.carcel= true
             enemy.collision = true;
             var score = document.getElementById("score")
             self.points += 50
@@ -155,7 +148,6 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
       collisionKahoot.volume = 0.99
       collisionKahoot.play()
       kahoot.removeKahoot()
-      console.log("superire")
       self.superIra()
     }
   }

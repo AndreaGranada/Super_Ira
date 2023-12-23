@@ -58,9 +58,6 @@ box.insertBox();
 // crear Kahoot
 var kahoot = new CreateKahoot(0, 0, board)
 
-
-
-
 //crear estrella
 
 var star = new CreateStar(400, 225, board)
@@ -72,10 +69,6 @@ var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes, kahoot);
 iratze.insertPlayer();
 
 // Aparición de enemigos
-
-// var enemy = new CreateEnemy(50, 630, board, iratze);
-// enemy.insertEnemy()
-// console.log(enemy)
 
 function createEnemy() {
   var enemy = new CreateEnemy(0, 640, board, platforms, pipeline2)
@@ -108,8 +101,6 @@ function lifeGen() {
 }
 
 lifeGen()
-
-
 
 // Elementos del tablero
 var plataform1 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
@@ -161,8 +152,6 @@ var collisionPlataform = setInterval(function () {
   pipeline1.checkCollision();
   pipeline2.checkCollision();
   iratze.checkCollision();
-  //plataform1.checkCollisionEnemies();
-  //enemy.checkCollision();
 }, 50)
 
 //colisiones de enemigos con plataformas
@@ -175,7 +164,6 @@ var collisionPlataformEnemies = setInterval(function () {
 
 //comprobador kahoot
 
-
 var checkKahoot = setInterval(function () {
   if (star.contador === 5 && kahoot.controlInsert) {
     star.contador = 0;
@@ -185,7 +173,6 @@ var checkKahoot = setInterval(function () {
 }, 100)
 
 //comprobador modeSuperIra
-
 
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
@@ -282,14 +269,6 @@ window.addEventListener('keydown', function (e) {
   }
 })
 
-/*var checkImagenOrientacion = setInterval(function(){
-  if(iratze.direction = -1 && iratze.key ){
-    document.querySelector(".player").classList.add("playerIzquierda")
-  }
-  if(iratze.direction = 1){
-    document.querySelector(".player").classList.add("playerDerecha")
-  }
-},100)*/
 // Movimiento
 var saltoHabilitado = true;
 
@@ -309,11 +288,7 @@ function playerMovement() {
     document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
     kahoot.removeKahoot()
-    //clearInterval(timerId)
-    //clearInterval(collisionPlataformEnemies)
-    //clearInterval(collisionPlataform)
     clearInterval(enemyGenTimer);
-    //clearInterval(timerIdEnemy)
   }
 }
 
@@ -321,7 +296,6 @@ function playerMovement() {
 window.addEventListener('keyup', function (e) {
   teclasPresionadas[e.key] = false;
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
-    // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
     iratze.direction = 0;
     if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
       document.querySelector(".jugador").classList.remove("playerDerecha")
@@ -376,33 +350,6 @@ restart.addEventListener("click", function () {
 
   iratze.points = 0
   score.innerText = iratze.points.toString().padStart(4, '0');
-
-
-  //createEnemy();
-  //var enemyGenTimer = setInterval(createEnemy, 60000)
 })
-
-// Movimiento Enemy
-
-// var timerIdEnemy = setInterval(enemyMovement, 500)
-
-// function enemyMovement() {
-
-//   var random = Math.floor(Math.random() * 10);
-//     if (random > 8) {
-//       enemy.direction *= -1
-//       console.log('Ejecutando')
-//       console.log(enemy.direction)
-//     }
-
-
-/*if(player.isDead === true) {
-  alert('GAME OVER')
-  clearInterval(timerId)
-  clearInterval(enemyGenTimer)
-  enemies.forEach(function(enemy) {
-    enemy.removeEnemy()
-  })
-}*/
 
 export { createEnemy }
