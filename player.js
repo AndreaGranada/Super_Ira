@@ -18,14 +18,19 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   this.noGaming = true;
   this.superMode = false
 
+  var transform = new Audio("./sounds/transform.mp3")
+
   this.superIra = function () {
     self.superMode = true
     self.speed = 10
+    transform.currentTime = 0
+    transform.volume = 0.1
+    transform.play()
     setTimeout(function () {
       self.superMode = false
       kahoot.controlColission = true
       self.speed = 5
-    }, 5000)
+    }, 6500)
   }
 
   this.insertPlayer = function () {

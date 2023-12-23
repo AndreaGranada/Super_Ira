@@ -6,9 +6,9 @@ import { CreateLife } from "./hp.js"
 import { CreateKahoot } from "./kahoot.js";
 import { CreateBox } from "./box.js";
 
-
-
 var noGaming = true;
+
+var transform = false;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
 backgroundMusic.volume = 0.008
@@ -63,6 +63,8 @@ var kahoot = new CreateKahoot(0, 0, board)
 var star = new CreateStar(400, 225, board)
 
 star.insertStar();
+
+//crear player
 
 var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes, kahoot);
 
@@ -176,9 +178,11 @@ var checkKahoot = setInterval(function () {
 
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
+    transform = true
     if (!document.querySelector(".jugador").classList.contains("super")) {
       document.querySelector(".jugador").classList.add("super")
     }
+    setTimeout(function(){transform=false}, 1500)
   }
   else {
 
@@ -201,70 +205,72 @@ var teclasPresionadas = {
 
 window.addEventListener('keydown', function (e) {
   teclasPresionadas[e.key] = true;
+  if (!transform) {
+    switch (e.key) {
+      case 'a':
 
-  switch (e.key) {
-    case 'a':
-      iratze.direction = -1
-      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
-        document.querySelector(".jugador").classList.remove("player")
-        document.querySelector(".jugador").classList.remove("playerDerecha")
-        document.querySelector(".jugador").classList.add("playerIzquierda")
-      }
+        iratze.direction = -1
+        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
+          document.querySelector(".jugador").classList.remove("player")
+          document.querySelector(".jugador").classList.remove("playerDerecha")
+          document.querySelector(".jugador").classList.add("playerIzquierda")
+        }
 
-      break
+        break
 
-    case 'd':
-      iratze.direction = +1
-      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-        document.querySelector(".jugador").classList.remove("player")
-        document.querySelector(".jugador").classList.remove("playerIzquierda")
-        document.querySelector(".jugador").classList.add("playerDerecha")
-      }
+      case 'd':
+        iratze.direction = +1
+        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+          document.querySelector(".jugador").classList.remove("player")
+          document.querySelector(".jugador").classList.remove("playerIzquierda")
+          document.querySelector(".jugador").classList.add("playerDerecha")
+        }
 
-      break
+        break
 
-    case ' ':
-    case 'w':
+      case ' ':
+      case 'w':
+        if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
+          jumpsound.currentTime = 0
+          jumpsound.volume = 0.1
+          jumpsound.play()
+          saltoHabilitado = false;
+          iratze.updown = +1
+          if (iratze.y === 612) {
+            setTimeout(function () {
+              iratze.updown = -1;
+              saltoHabilitado = true;
+            }, 50)
+          } else {
+            setTimeout(function () {
+              iratze.updown = -1;
+              saltoHabilitado = true;
+            }, 900)
+          }
+        }
+
+        if (iratze.updown === 0) {
+          saltoHabilitado = true;
+        }
+        break
+    }
+
+    if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w']) {
       if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
         jumpsound.currentTime = 0
         jumpsound.volume = 0.1
         jumpsound.play()
         saltoHabilitado = false;
         iratze.updown = +1
-        if (iratze.y === 612) {
-          setTimeout(function () {
-            iratze.updown = -1;
-            saltoHabilitado = true;
-          }, 50)
-        } else {
-          setTimeout(function () {
-            iratze.updown = -1;
-            saltoHabilitado = true;
-          }, 900)
-        }
+        setTimeout(function () {
+          iratze.updown = -1;
+          saltoHabilitado = true;
+        }, 900)
       }
 
       if (iratze.updown === 0) {
         saltoHabilitado = true;
       }
-      break
-  }
-
-  if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w']) {
-    if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
-      jumpsound.currentTime = 0
-      jumpsound.volume = 0.1
-      jumpsound.play()
-      saltoHabilitado = false;
-      iratze.updown = +1
-      setTimeout(function () {
-        iratze.updown = -1;
-        saltoHabilitado = true;
-      }, 900)
-    }
-
-    if (iratze.updown === 0) {
-      saltoHabilitado = true;
     }
   }
 })
@@ -302,9 +308,7 @@ window.addEventListener('keyup', function (e) {
       document.querySelector(".jugador").classList.remove("playerIzquierda")
       document.querySelector(".jugador").classList.add("player")
     }
-
   }
-
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER
