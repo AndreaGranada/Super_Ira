@@ -6,9 +6,9 @@ import { CreateLife } from "./hp.js"
 import { CreateKahoot } from "./kahoot.js";
 import { CreateBox } from "./box.js";
 
-
-
 var noGaming = true;
+
+var transform = false;
 
 var backgroundMusic = new Audio("./sounds/background-music.mp3")
 backgroundMusic.volume = 0.008
@@ -58,24 +58,19 @@ box.insertBox();
 // crear Kahoot
 var kahoot = new CreateKahoot(0, 0, board)
 
-
-
-
 //crear estrella
 
 var star = new CreateStar(400, 225, board)
 
 star.insertStar();
 
+//crear player
+
 var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes, kahoot);
 
 iratze.insertPlayer();
 
 // Aparición de enemigos
-
-// var enemy = new CreateEnemy(50, 630, board, iratze);
-// enemy.insertEnemy()
-// console.log(enemy)
 
 function createEnemy() {
   var enemy = new CreateEnemy(0, 640, board, platforms, pipeline2)
@@ -108,8 +103,6 @@ function lifeGen() {
 }
 
 lifeGen()
-
-
 
 // Elementos del tablero
 var plataform1 = new CreatePlataform(0, 5, 500, board, iratze, enemies);
@@ -161,8 +154,6 @@ var collisionPlataform = setInterval(function () {
   pipeline1.checkCollision();
   pipeline2.checkCollision();
   iratze.checkCollision();
-  //plataform1.checkCollisionEnemies();
-  //enemy.checkCollision();
 }, 50)
 
 //colisiones de enemigos con plataformas
@@ -175,7 +166,6 @@ var collisionPlataformEnemies = setInterval(function () {
 
 //comprobador kahoot
 
-
 var checkKahoot = setInterval(function () {
   if (star.contador === 5 && kahoot.controlInsert) {
     star.contador = 0;
@@ -186,12 +176,13 @@ var checkKahoot = setInterval(function () {
 
 //comprobador modeSuperIra
 
-
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
+    transform = true
     if (!document.querySelector(".jugador").classList.contains("super")) {
       document.querySelector(".jugador").classList.add("super")
     }
+    setTimeout(function(){transform=false}, 1500)
   }
   else {
 
@@ -214,82 +205,76 @@ var teclasPresionadas = {
 
 window.addEventListener('keydown', function (e) {
   teclasPresionadas[e.key] = true;
+  if (!transform) {
+    switch (e.key) {
+      case 'a':
 
-  switch (e.key) {
-    case 'a':
-      iratze.direction = -1
-      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
-        document.querySelector(".jugador").classList.remove("player")
-        document.querySelector(".jugador").classList.remove("playerDerecha")
-        document.querySelector(".jugador").classList.add("playerIzquierda")
-      }
+        iratze.direction = -1
+        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
+          document.querySelector(".jugador").classList.remove("player")
+          document.querySelector(".jugador").classList.remove("playerDerecha")
+          document.querySelector(".jugador").classList.add("playerIzquierda")
+        }
 
-      break
+        break
 
-    case 'd':
-      iratze.direction = +1
-      if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-        document.querySelector(".jugador").classList.remove("player")
-        document.querySelector(".jugador").classList.remove("playerIzquierda")
-        document.querySelector(".jugador").classList.add("playerDerecha")
-      }
+      case 'd':
+        iratze.direction = +1
+        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
+          document.querySelector(".jugador").classList.remove("player")
+          document.querySelector(".jugador").classList.remove("playerIzquierda")
+          document.querySelector(".jugador").classList.add("playerDerecha")
+        }
 
-      break
+        break
 
-    case ' ':
-    case 'w':
+      case ' ':
+      case 'w':
+        if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
+          jumpsound.currentTime = 0
+          jumpsound.volume = 0.1
+          jumpsound.play()
+          saltoHabilitado = false;
+          iratze.updown = +1
+          if (iratze.y === 612) {
+            setTimeout(function () {
+              iratze.updown = -1;
+              saltoHabilitado = true;
+            }, 50)
+          } else {
+            setTimeout(function () {
+              iratze.updown = -1;
+              saltoHabilitado = true;
+            }, 900)
+          }
+        }
+
+        if (iratze.updown === 0) {
+          saltoHabilitado = true;
+        }
+        break
+    }
+
+    if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w']) {
       if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
         jumpsound.currentTime = 0
         jumpsound.volume = 0.1
         jumpsound.play()
         saltoHabilitado = false;
         iratze.updown = +1
-        if (iratze.y === 612) {
-          setTimeout(function () {
-            iratze.updown = -1;
-            saltoHabilitado = true;
-          }, 50)
-        } else {
-          setTimeout(function () {
-            iratze.updown = -1;
-            saltoHabilitado = true;
-          }, 900)
-        }
+        setTimeout(function () {
+          iratze.updown = -1;
+          saltoHabilitado = true;
+        }, 900)
       }
 
       if (iratze.updown === 0) {
         saltoHabilitado = true;
       }
-      break
-  }
-
-  if ((teclasPresionadas['a'] || teclasPresionadas['d']) && teclasPresionadas['w']) {
-    if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
-      jumpsound.currentTime = 0
-      jumpsound.volume = 0.1
-      jumpsound.play()
-      saltoHabilitado = false;
-      iratze.updown = +1
-      setTimeout(function () {
-        iratze.updown = -1;
-        saltoHabilitado = true;
-      }, 900)
-    }
-
-    if (iratze.updown === 0) {
-      saltoHabilitado = true;
     }
   }
 })
 
-/*var checkImagenOrientacion = setInterval(function(){
-  if(iratze.direction = -1 && iratze.key ){
-    document.querySelector(".player").classList.add("playerIzquierda")
-  }
-  if(iratze.direction = 1){
-    document.querySelector(".player").classList.add("playerDerecha")
-  }
-},100)*/
 // Movimiento
 var saltoHabilitado = true;
 
@@ -309,11 +294,7 @@ function playerMovement() {
     document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
     kahoot.removeKahoot()
-    //clearInterval(timerId)
-    //clearInterval(collisionPlataformEnemies)
-    //clearInterval(collisionPlataform)
     clearInterval(enemyGenTimer);
-    //clearInterval(timerIdEnemy)
   }
 }
 
@@ -321,16 +302,13 @@ function playerMovement() {
 window.addEventListener('keyup', function (e) {
   teclasPresionadas[e.key] = false;
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
-    // La tecla 'a' se levanta y la dirección estaba establecida a la izquierda
     iratze.direction = 0;
     if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
       document.querySelector(".jugador").classList.remove("playerDerecha")
       document.querySelector(".jugador").classList.remove("playerIzquierda")
       document.querySelector(".jugador").classList.add("player")
     }
-
   }
-
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER
@@ -376,33 +354,6 @@ restart.addEventListener("click", function () {
 
   iratze.points = 0
   score.innerText = iratze.points.toString().padStart(4, '0');
-
-
-  //createEnemy();
-  //var enemyGenTimer = setInterval(createEnemy, 60000)
 })
-
-// Movimiento Enemy
-
-// var timerIdEnemy = setInterval(enemyMovement, 500)
-
-// function enemyMovement() {
-
-//   var random = Math.floor(Math.random() * 10);
-//     if (random > 8) {
-//       enemy.direction *= -1
-//       console.log('Ejecutando')
-//       console.log(enemy.direction)
-//     }
-
-
-/*if(player.isDead === true) {
-  alert('GAME OVER')
-  clearInterval(timerId)
-  clearInterval(enemyGenTimer)
-  enemies.forEach(function(enemy) {
-    enemy.removeEnemy()
-  })
-}*/
 
 export { createEnemy }
