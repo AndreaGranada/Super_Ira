@@ -20,6 +20,16 @@
     z-index: 2;
 }
 
+.jugador{
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 78px;
+    width: 50px;
+    position: absolute;
+    left: 243px;
+    z-index: 2;
+}
+
 .playerDerecha{
     background-image: url(./img/centro.png);
     background-size: contain;
@@ -257,6 +267,7 @@ h1{
     background-repeat: no-repeat;
     background-position: bottom;
     animation: transformAnimation 1.5s linear 1 forwards;
+    z-index: 2;
 }
 
 @keyframes transformAnimation {
@@ -285,6 +296,42 @@ h1{
     100% {
         background-image: url('./img/supermode/7.png');
     }
+}
+
+.jump{
+    /*background-image: url(./img/supersuper.png) !important;*/
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    position: absolute;
+    height: 78px;
+    width: 60px;
+    animation: jumpAnimation 0.3s linear 1 forwards;
+    background-size: auto 100%;
+}
+
+@keyframes jumpAnimation {
+    0%, 20% {
+        background-image: url('./img/jump/3.png');
+        transform: scaleY(1);
+        transform: scaleX(1);
+    }
+    40% {
+        background-image: url('./img/jump/4.png');
+    }
+    100% {
+        background-image: url('./img/jump/5.png');
+    }
+}
+
+.stopAnimationLeft {
+    animation-play-state: paused;
+    background-image: url('./img/jump/leftjump.png');
+}
+
+.stopAnimationRight {
+    animation-play-state: paused;
+    background-image: url('./img/jump/rightjump.png');
 }
 
 .preload-images {

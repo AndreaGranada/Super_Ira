@@ -182,7 +182,7 @@ var checkIratze = setInterval(function () {
     if (!document.querySelector(".jugador").classList.contains("super")) {
       document.querySelector(".jugador").classList.add("super")
     }
-    setTimeout(function(){transform=false}, 1500)
+    setTimeout(function () { transform = false }, 1500)
   }
   else {
 
@@ -216,6 +216,8 @@ window.addEventListener('keydown', function (e) {
           document.querySelector(".jugador").classList.add("playerIzquierda")
         }
 
+
+
         break
 
       case 'd':
@@ -231,6 +233,10 @@ window.addEventListener('keydown', function (e) {
       case ' ':
       case 'w':
         if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
+          if (document.querySelector(".jugador").classList.contains("player") && !document.querySelector(".jugador").classList.contains("super")) {
+            document.querySelector(".jugador").classList.remove("player")
+            document.querySelector(".jugador").classList.add("jump")
+          }
           jumpsound.currentTime = 0
           jumpsound.volume = 0.1
           jumpsound.play()
@@ -249,9 +255,7 @@ window.addEventListener('keydown', function (e) {
           }
         }
 
-        if (iratze.updown === 0) {
-          saltoHabilitado = true;
-        }
+
         break
     }
 
@@ -268,6 +272,16 @@ window.addEventListener('keydown', function (e) {
         }, 900)
       }
 
+      if (teclasPresionadas['a'] && teclasPresionadas['w']) {
+        document.querySelector(".jugador").classList.remove("playerIzquierda")
+        document.querySelector(".jugador").classList.add("stopAnimationLeft")
+      }
+
+      if (teclasPresionadas['d'] && teclasPresionadas['w']) {
+        document.querySelector(".jugador").classList.remove("playerDerecha")
+        document.querySelector(".jugador").classList.add("stopAnimationRight")
+      }
+
       if (iratze.updown === 0) {
         saltoHabilitado = true;
       }
@@ -282,6 +296,46 @@ var timerId = setInterval(playerMovement, 50)
 
 function playerMovement() {
   iratze.move();
+
+  if (iratze.updown === 0) {
+    saltoHabilitado = true;
+    if (document.querySelector(".jugador").classList.contains("jump")) {
+      document.querySelector(".jugador").classList.remove("jump")
+      document.querySelector(".jugador").classList.add("player")
+    }
+
+    if (document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimationRight")) {
+      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
+      document.querySelector(".jugador").classList.remove("stopAnimationRight")
+
+      if (iratze.direction === -1) {
+        document.querySelector(".jugador").classList.add("playerIzquierda")
+      }
+
+      if (iratze.direction === 1) {
+        document.querySelector(".jugador").classList.add("playerDerecha")
+      }
+
+      if (iratze.direction === 0) {
+        document.querySelector(".jugador").classList.add("player")
+      }
+    }
+  }
+
+  if (iratze.updown === 1 || iratze.updown === -1 && (document.querySelector(".jugador").classList.contains("jump") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimationLeft"))) {
+    if (iratze.direction === 1) {
+      document.querySelector(".jugador").classList.remove("jump")
+      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
+      document.querySelector(".jugador").classList.add("stopAnimationRight")
+    }
+
+    if (iratze.direction === -1) {
+      document.querySelector(".jugador").classList.remove("jump")
+      document.querySelector(".jugador").classList.remove("stopAnimationRight")
+      document.querySelector(".jugador").classList.add("stopAnimationLeft")
+    }
+  }
+
   if (iratze.isDead === true) {
     var gameover = document.getElementById("gameover");
     gameover.style.display = "block"
@@ -308,7 +362,8 @@ window.addEventListener('keyup', function (e) {
       document.querySelector(".jugador").classList.remove("playerIzquierda")
       document.querySelector(".jugador").classList.add("player")
     }
-  }
+
+  } console.log(document.querySelector(".jugador").classList)
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER
