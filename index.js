@@ -304,9 +304,10 @@ function playerMovement() {
       document.querySelector(".jugador").classList.add("player")
     }
 
-    if (document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimationRight")) {
+    if (document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimation")) {
       document.querySelector(".jugador").classList.remove("stopAnimationLeft")
       document.querySelector(".jugador").classList.remove("stopAnimationRight")
+      document.querySelector(".jugador").classList.remove("stopAnimation")
 
       if (iratze.direction === -1) {
         document.querySelector(".jugador").classList.add("playerIzquierda")
@@ -322,17 +323,28 @@ function playerMovement() {
     }
   }
 
-  if (iratze.updown === 1 || iratze.updown === -1 && (document.querySelector(".jugador").classList.contains("jump") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimationLeft"))) {
+  if (iratze.updown === 1 || iratze.updown === -1 && (document.querySelector(".jugador").classList.contains("jump") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimation") || document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda"))) {
     if (iratze.direction === 1) {
       document.querySelector(".jugador").classList.remove("jump")
       document.querySelector(".jugador").classList.remove("stopAnimationLeft")
+      document.querySelector(".jugador").classList.remove("stopAnimation")
+      document.querySelector(".jugador").classList.remove("playerDerecha")
       document.querySelector(".jugador").classList.add("stopAnimationRight")
     }
 
     if (iratze.direction === -1) {
       document.querySelector(".jugador").classList.remove("jump")
       document.querySelector(".jugador").classList.remove("stopAnimationRight")
+      document.querySelector(".jugador").classList.remove("stopAnimation")
+      document.querySelector(".jugador").classList.remove("playerIzquierda")
       document.querySelector(".jugador").classList.add("stopAnimationLeft")
+    }
+
+    if (iratze.direction === 0 && iratze.updown === -1) {
+      document.querySelector(".jugador").classList.remove("jump")
+      document.querySelector(".jugador").classList.remove("stopAnimationRight")
+      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
+      document.querySelector(".jugador").classList.add("stopAnimation")
     }
   }
 
@@ -363,7 +375,7 @@ window.addEventListener('keyup', function (e) {
       document.querySelector(".jugador").classList.add("player")
     }
 
-  } console.log(document.querySelector(".jugador").classList)
+  }
 });
 
 //PANTALLAS DE INICIO Y DE GAME OVER
