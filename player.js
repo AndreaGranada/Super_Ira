@@ -35,8 +35,8 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
 
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
-    newPlayer.classList.add('player');
     newPlayer.classList.add('jugador');
+    newPlayer.classList.add('player');
     newPlayer.style.bottom = this.y + 'px';
     newPlayer.style.left = this.x + 'px';
     parent.appendChild(newPlayer);
@@ -147,7 +147,8 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
     if (self.x < (kahoot.x + kahoot.width) &&
       self.y < kahoot.y + kahoot.height &&
       self.x + self.width > kahoot.x &&
-      self.y + self.height > kahoot.y && kahoot.controlColission) {
+      self.y + self.height > kahoot.y && kahoot.controlColission &&
+      self.direction === 0) {
       kahoot.controlColission = false;
       collisionKahoot.currentTime = 0.1
       collisionKahoot.volume = 0.99

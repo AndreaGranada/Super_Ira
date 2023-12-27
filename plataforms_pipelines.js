@@ -135,15 +135,17 @@ function CreatePipelines(x, y, parent, player, enemy) {
 
     this.checkCollision = function () {
 
-        //var nextY = self.y + self.jumpspeed * self.updown;
-
         if (this.x < (player.x + player.width) &&
-            this.y < player.y /*+ player.height*/ &&
+            this.y < player.y &&
             this.x + this.width > player.x &&
             this.y + this.height > player.y && player.updown === -1) {
             player.updown = 0;
             this.colision = true;
-
+            /*if (document.querySelector(".jugador").classList.contains("jump")) {
+                document.querySelector(".jugador").classList.remove("jump")
+                document.querySelector(".jugador").classList.add("player")
+                console.log(document.querySelector(".jugador").classList)
+              }*/
         }
 
         //caida izquierda
@@ -162,6 +164,8 @@ function CreatePipelines(x, y, parent, player, enemy) {
                 this.colision = false;
             }
         }
+
+        //colision enemigos
         if (this.x < (enemy.x + enemy.width) &&
             this.y < enemy.y &&
             this.x + this.width > enemy.x &&
