@@ -150,7 +150,8 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
     if (self.x < (star.x + star.width) &&
       self.y < star.y + star.height &&
       self.x + self.width > star.x &&
-      self.y + self.height > star.y && star.controlColission) {
+      self.y + self.height > star.y && star.controlColission && 
+      self.noGaming === false) {
       star.controlColission = false;
       collisionChoco.currentTime = 0.4
       collisionChoco.volume = 0.99
@@ -170,7 +171,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
       self.y < kahoot.y + kahoot.height &&
       self.x + self.width > kahoot.x &&
       self.y + self.height > kahoot.y && kahoot.controlColission &&
-      self.direction === 0) {
+      self.direction === 0 && self.noGaming === false) {
       kahoot.controlColission = false;
       collisionKahoot.currentTime = 0.1
       collisionKahoot.volume = 0.99

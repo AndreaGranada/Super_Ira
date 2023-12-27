@@ -179,19 +179,16 @@ var checkKahoot = setInterval(function () {
 //comprobador modeSuperIra
 
 var checkIratze = setInterval(function () {
-  if (iratze.superMode === true) {
+  if (iratze.superMode === true && iratze.isDead === false) {
     transform = true
     if (!jugador.classList.contains("super")) {
       jugador.classList.add("super")
     }
     setTimeout(function () { transform = false }, 1500)
   }
-  else {
-
-    if (jugador.classList.contains("super")) {
+  else if (jugador.classList.contains("super")){
       jugador.classList.remove("super")
     }
-  }
 }, 100)
 
 
@@ -361,6 +358,7 @@ function playerMovement() {
 
 
     noGaming = true;
+    iratze.noGaming = true;
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
     gameovermusic.volume = 0.008
