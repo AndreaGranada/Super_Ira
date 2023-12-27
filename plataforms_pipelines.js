@@ -44,72 +44,6 @@ function CreatePlataform(x, y, width, parent, player, enemies) {
                 this.colision = false;
             }
         }
-
-        //colision con enemigo
-
-
-        // enemies.forEach(function (enemy) {
-        //     if (self.x < (enemy.x + enemy.width) &&
-        //         self.y < enemy.y &&
-        //         self.x + self.width > enemy.x &&
-        //         self.y + self.height > enemy.y && enemy.updown === -1) {
-        //         enemy.updown = 0;
-        //         enemy.colisionPlatform = true;
-        //         //self.colisionEnemy = true;
-        //         //enemy.removeEnemy()
-        //         //enemies.splice(i, 1)
-        //     }else if(self.x + self.width < enemy.x){
-        //         enemy.colisionPlatform = false;
-        //     }
-
-            //caida izquierda enemigo
-            // if (self.x > enemy.x + enemy.width && enemy.colisionPlatform) {
-            //     if (enemy.updown !== +1) {
-            //         //enemy.updown = -1;
-            //         enemy.colisionPlatform = false;
-            //         console.log('caida izq')
-            //     }
-
-            // }
-
-            // //caida derecha enemigo
-            // if (self.x + self.width < enemy.x && enemy.colisionPlatform) {
-            //     if (enemy.updown !== +1) {
-            //         //enemy.updown = -1;
-            //         enemy.colisionPlatform = false;
-            //         console.log('caida derecha')
-            //     }
-            // }
-
-        //})
-
-        // if (this.x < (enemy.x + enemy.width) &&
-        //     this.y < enemy.y &&
-        //     this.x + this.width > enemy.x &&
-        //     this.y + this.height > enemy.y && enemy.updown === -1) {
-        //     enemy.updown = 0;
-        //     this.colisionEnemy = true;
-        // }
-
-        //caida izquierda enemigo
-        // if (this.x > enemy.x + enemy.width && this.colisionEnemy) {
-        //     if (enemy.updown !== +1) {
-        //         enemy.updown = -1;
-        //         this.colisionEnemy = false;
-        //         console.log('caida izq')
-        //     }
-
-        // }
-
-        // //caida derecha enemigo
-        // if (this.x + this.width < enemy.x && this.colisionEnemy) {
-        //     if (enemy.updown !== +1) {
-        //         enemy.updown = -1;
-        //         this.colisionEnemy = false;
-        //         console.log('caida derecha')
-        //     }
-        // }
-        //}
     }
 
 
@@ -141,11 +75,6 @@ function CreatePipelines(x, y, parent, player, enemy) {
             this.y + this.height > player.y && player.updown === -1) {
             player.updown = 0;
             this.colision = true;
-            /*if (document.querySelector(".jugador").classList.contains("jump")) {
-                document.querySelector(".jugador").classList.remove("jump")
-                document.querySelector(".jugador").classList.add("player")
-                console.log(document.querySelector(".jugador").classList)
-              }*/
         }
 
         //caida izquierda
@@ -179,7 +108,6 @@ function CreatePipelines(x, y, parent, player, enemy) {
             if (enemy.updown !== +1) {
                 enemy.updown = -1;
                 this.colisionEnemy = false;
-                console.log('caida izq')
             }
 
         }
@@ -189,7 +117,6 @@ function CreatePipelines(x, y, parent, player, enemy) {
             if (enemy.updown !== +1) {
                 enemy.updown = -1;
                 this.colisionEnemy = false;
-                console.log('caida derecha')
             }
         }
 

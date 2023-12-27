@@ -20,7 +20,7 @@
     z-index: 2;
 }
 
-.jugador{
+#jugador{
     background-size: contain;
     background-repeat: no-repeat;
     height: 78px;
@@ -344,6 +344,34 @@ h1{
     background-repeat: no-repeat;
     background-position: bottom;
     position: absolute;
+}
+
+.die{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    position: absolute;
+    height: 78px;
+    width: 65px;
+    animation: dieAnimation 0.2s linear 1 forwards;
+    background-size: auto 100%;
+}
+
+@keyframes dieAnimation {
+    0% {
+        background-image: url('./img/die/1.png');
+        transform: scaleY(1) scaleX(1);
+    }
+    40% {
+        background-image: url('./img/die/2.png');
+        transform: scaleY(1) scaleX(1);
+    }
+    70% {
+        background-image: url('./img/die/3.png');
+    }
+    100% {
+        background-image: url('./img/die/4.png');
+    }
 }
 
 .preload-images {

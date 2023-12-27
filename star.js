@@ -22,7 +22,6 @@ function CreateStar(x, y, parent) {
     this.places = [[170, 125],[150, 125],[400, 225],[280, 325],[50, 425],[160, 525],[420,230],[325,445]]
 
     this.respawn = function () {
-      console.log(self.contador)
         var randomPlace = Math.floor(Math.random() * 8)
 
         while(self.places[randomPlace][0]===self.beforePossitionX && self.places[randomPlace][1]===self.beforePossitionY){

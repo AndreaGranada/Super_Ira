@@ -70,6 +70,8 @@ var iratze = new CreatePlayer(243, 12, board, enemies, star, lifes, kahoot);
 
 iratze.insertPlayer();
 
+var jugador = document.getElementById("jugador");
+
 // Aparición de enemigos
 
 function createEnemy() {
@@ -179,15 +181,15 @@ var checkKahoot = setInterval(function () {
 var checkIratze = setInterval(function () {
   if (iratze.superMode === true) {
     transform = true
-    if (!document.querySelector(".jugador").classList.contains("super")) {
-      document.querySelector(".jugador").classList.add("super")
+    if (!jugador.classList.contains("super")) {
+      jugador.classList.add("super")
     }
     setTimeout(function () { transform = false }, 1500)
   }
   else {
 
-    if (document.querySelector(".jugador").classList.contains("super")) {
-      document.querySelector(".jugador").classList.remove("super")
+    if (jugador.classList.contains("super")) {
+      jugador.classList.remove("super")
     }
   }
 }, 100)
@@ -210,10 +212,10 @@ window.addEventListener('keydown', function (e) {
       case 'a':
 
         iratze.direction = -1
-        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerDerecha")) {
-          document.querySelector(".jugador").classList.remove("player")
-          document.querySelector(".jugador").classList.remove("playerDerecha")
-          document.querySelector(".jugador").classList.add("playerIzquierda")
+        if (jugador.classList.contains("player") || jugador.classList.contains("playerDerecha")) {
+          jugador.classList.remove("player")
+          jugador.classList.remove("playerDerecha")
+          jugador.classList.add("playerIzquierda")
         }
 
 
@@ -222,10 +224,10 @@ window.addEventListener('keydown', function (e) {
 
       case 'd':
         iratze.direction = +1
-        if (document.querySelector(".jugador").classList.contains("player") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-          document.querySelector(".jugador").classList.remove("player")
-          document.querySelector(".jugador").classList.remove("playerIzquierda")
-          document.querySelector(".jugador").classList.add("playerDerecha")
+        if (jugador.classList.contains("player") || jugador.classList.contains("playerIzquierda")) {
+          jugador.classList.remove("player")
+          jugador.classList.remove("playerIzquierda")
+          jugador.classList.add("playerDerecha")
         }
 
         break
@@ -233,9 +235,9 @@ window.addEventListener('keydown', function (e) {
       case ' ':
       case 'w':
         if (saltoHabilitado === true && iratze.updown === 0 && noGaming === false) {
-          if (document.querySelector(".jugador").classList.contains("player") && !document.querySelector(".jugador").classList.contains("super")) {
-            document.querySelector(".jugador").classList.remove("player")
-            document.querySelector(".jugador").classList.add("jump")
+          if (jugador.classList.contains("player") && !jugador.classList.contains("super")) {
+            jugador.classList.remove("player")
+            jugador.classList.add("jump")
           }
           jumpsound.currentTime = 0
           jumpsound.volume = 0.1
@@ -273,13 +275,13 @@ window.addEventListener('keydown', function (e) {
       }
 
       if (teclasPresionadas['a'] && teclasPresionadas['w']) {
-        document.querySelector(".jugador").classList.remove("playerIzquierda")
-        document.querySelector(".jugador").classList.add("stopAnimationLeft")
+        jugador.classList.remove("playerIzquierda")
+        jugador.classList.add("stopAnimationLeft")
       }
 
       if (teclasPresionadas['d'] && teclasPresionadas['w']) {
-        document.querySelector(".jugador").classList.remove("playerDerecha")
-        document.querySelector(".jugador").classList.add("stopAnimationRight")
+        jugador.classList.remove("playerDerecha")
+        jugador.classList.add("stopAnimationRight")
       }
 
       if (iratze.updown === 0) {
@@ -299,68 +301,79 @@ function playerMovement() {
 
   if (iratze.updown === 0) {
     saltoHabilitado = true;
-    if (document.querySelector(".jugador").classList.contains("jump")) {
-      document.querySelector(".jugador").classList.remove("jump")
-      document.querySelector(".jugador").classList.add("player")
+    if (jugador.classList.contains("jump")) {
+      jugador.classList.remove("jump")
+      jugador.classList.add("player")
     }
 
-    if (document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimation")) {
-      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
-      document.querySelector(".jugador").classList.remove("stopAnimationRight")
-      document.querySelector(".jugador").classList.remove("stopAnimation")
+    if (jugador.classList.contains("stopAnimationLeft") || jugador.classList.contains("stopAnimationRight") || jugador.classList.contains("stopAnimation")) {
+      jugador.classList.remove("stopAnimationLeft")
+      jugador.classList.remove("stopAnimationRight")
+      jugador.classList.remove("stopAnimation")
 
       if (iratze.direction === -1) {
-        document.querySelector(".jugador").classList.add("playerIzquierda")
+        jugador.classList.add("playerIzquierda")
       }
 
       if (iratze.direction === 1) {
-        document.querySelector(".jugador").classList.add("playerDerecha")
+        jugador.classList.add("playerDerecha")
       }
 
       if (iratze.direction === 0) {
-        document.querySelector(".jugador").classList.add("player")
+        jugador.classList.add("player")
       }
     }
   }
 
-  if (iratze.updown === 1 || iratze.updown === -1 && (document.querySelector(".jugador").classList.contains("jump") || document.querySelector(".jugador").classList.contains("stopAnimationRight") || document.querySelector(".jugador").classList.contains("stopAnimationLeft") || document.querySelector(".jugador").classList.contains("stopAnimation") || document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda"))) {
+  if (iratze.updown === 1 || iratze.updown === -1 && (jugador.classList.contains("jump") || jugador.classList.contains("stopAnimationRight") || jugador.classList.contains("stopAnimationLeft") || jugador.classList.contains("stopAnimation") || jugador.classList.contains("playerDerecha") || jugador.classList.contains("playerIzquierda"))) {
     if (iratze.direction === 1) {
-      document.querySelector(".jugador").classList.remove("jump")
-      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
-      document.querySelector(".jugador").classList.remove("stopAnimation")
-      document.querySelector(".jugador").classList.remove("playerDerecha")
-      document.querySelector(".jugador").classList.add("stopAnimationRight")
+      jugador.classList.remove("jump")
+      jugador.classList.remove("stopAnimationLeft")
+      jugador.classList.remove("stopAnimation")
+      jugador.classList.remove("playerDerecha")
+      jugador.classList.add("stopAnimationRight")
     }
 
     if (iratze.direction === -1) {
-      document.querySelector(".jugador").classList.remove("jump")
-      document.querySelector(".jugador").classList.remove("stopAnimationRight")
-      document.querySelector(".jugador").classList.remove("stopAnimation")
-      document.querySelector(".jugador").classList.remove("playerIzquierda")
-      document.querySelector(".jugador").classList.add("stopAnimationLeft")
+      jugador.classList.remove("jump")
+      jugador.classList.remove("stopAnimationRight")
+      jugador.classList.remove("stopAnimation")
+      jugador.classList.remove("playerIzquierda")
+      jugador.classList.add("stopAnimationLeft")
     }
 
     if (iratze.direction === 0 && iratze.updown === -1) {
-      document.querySelector(".jugador").classList.remove("jump")
-      document.querySelector(".jugador").classList.remove("stopAnimationRight")
-      document.querySelector(".jugador").classList.remove("stopAnimationLeft")
-      document.querySelector(".jugador").classList.add("stopAnimation")
+      jugador.classList.remove("jump")
+      jugador.classList.remove("stopAnimationRight")
+      jugador.classList.remove("stopAnimationLeft")
+      jugador.classList.add("stopAnimation")
     }
   }
 
   if (iratze.isDead === true) {
     var gameover = document.getElementById("gameover");
-    gameover.style.display = "block"
+
+    jugador.classList.remove(...jugador.classList);
+    jugador.classList.add("die")
+
+    setTimeout(function () {
+      gameover.style.display = "block"
+      document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
+      document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
+      jugador.classList.remove("die")
+      jugador.classList.add("player")
+    }, 2000)
+
+
     noGaming = true;
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
     gameovermusic.volume = 0.008
     gameovermusic.play()
-    document.getElementById("points").innerText = "YOUR SCORE: " + iratze.points.toString().padStart(4, '0');
-    document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
     iratze.noGaming = true;
     kahoot.removeKahoot()
     clearInterval(enemyGenTimer);
+    iratze.isDead = false;
   }
 }
 
@@ -369,10 +382,10 @@ window.addEventListener('keyup', function (e) {
   teclasPresionadas[e.key] = false;
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
     iratze.direction = 0;
-    if (document.querySelector(".jugador").classList.contains("playerDerecha") || document.querySelector(".jugador").classList.contains("playerIzquierda")) {
-      document.querySelector(".jugador").classList.remove("playerDerecha")
-      document.querySelector(".jugador").classList.remove("playerIzquierda")
-      document.querySelector(".jugador").classList.add("player")
+    if (jugador.classList.contains("playerDerecha") || jugador.classList.contains("playerIzquierda")) {
+      jugador.classList.remove("playerDerecha")
+      jugador.classList.remove("playerIzquierda")
+      jugador.classList.add("player")
     }
 
   }
@@ -401,8 +414,7 @@ restart.addEventListener("click", function () {
   gameovermusic.currentTime = 0;
   backgroundMusic.play()
   star.contador = 0
-  restart.parentNode.parentNode.style.display = "none"
-  iratze.isDead = false;
+  document.getElementById("gameover").style.display = "none"
   iratze.x = 243
   iratze.y = 12
   iratze.sprite.style.left = iratze.x + 'px'
