@@ -10,10 +10,11 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   this.updown = 0;
   this.speed = 5;
   this.jumpspeed = 6;
+  this.falldownspeed = 10;
   this.hp = 3;
   this.isDead = false;
   this.sprite
-  this.floor = 15;
+  this.floor = 10;
   this.points = 0;
   this.noGaming = true;
   this.superMode = false
@@ -35,7 +36,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
 
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
-    newPlayer.classList.add('jugador');
+    newPlayer.id = "jugador"
     newPlayer.classList.add('player');
     newPlayer.style.bottom = this.y + 'px';
     newPlayer.style.left = this.x + 'px';
@@ -54,7 +55,28 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
     }
 
     if (nextY >= self.floor && nextY < 550 + self.height) {
-      self.y += self.jumpspeed * self.updown
+      var gravity
+
+      if(self.updown === +1 || self.updown === 0){
+        gravity = self.jumpspeed
+      }
+
+      if(self.updown === -1){
+        gravity = self.falldownspeed
+      }
+
+      self.y += gravity * self.updown
+      self.sprite.style.bottom = self.y + 'px'
+    }
+
+  }
+
+  this.fall = function () {
+    var nextY = self.y + self.jumpspeed * self.updown;
+    self.updown = -1;
+
+    if (nextY >= self.floor && nextY < 550 + self.height) {
+      self.y += 14 * self.updown
       self.sprite.style.bottom = self.y + 'px'
     }
 
@@ -128,7 +150,8 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
     if (self.x < (star.x + star.width) &&
       self.y < star.y + star.height &&
       self.x + self.width > star.x &&
-      self.y + self.height > star.y && star.controlColission) {
+      self.y + self.height > star.y && star.controlColission && 
+      self.noGaming === false) {
       star.controlColission = false;
       collisionChoco.currentTime = 0.4
       collisionChoco.volume = 0.99
@@ -148,7 +171,7 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
       self.y < kahoot.y + kahoot.height &&
       self.x + self.width > kahoot.x &&
       self.y + self.height > kahoot.y && kahoot.controlColission &&
-      self.direction === 0) {
+      self.direction === 0 && self.noGaming === false) {
       kahoot.controlColission = false;
       collisionKahoot.currentTime = 0.1
       collisionKahoot.volume = 0.99
