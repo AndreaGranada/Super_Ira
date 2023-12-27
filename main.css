@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
-#board{
-    background-color: black;
+#board {
+    background: linear-gradient(to bottom, #6b88fe, rgb(190, 190, 255));
+    background-color: #6b88fe;
     height: 765px;
     width: 500px;
     margin: 50px auto;
@@ -9,7 +10,49 @@
     position: relative;
 }
 
-.player{
+#nube {
+    position: absolute;
+    left: 380px;
+    top: 150px;
+    z-index: 2;
+}
+
+#nubetriple {
+    position: absolute;
+    left: 200px;
+    top: 80px;
+    z-index: 2;
+}
+
+#nube2 {
+    position: absolute;
+    left: 50px;
+    top: 250px;
+    z-index: 2;
+}
+
+#nubetriple2 {
+    position: absolute;
+    left: 320px;
+    top: 280px;
+    z-index: 2;
+}
+
+#arbusto {
+    position: absolute;
+    left: 0px;
+    bottom: 110px;
+    z-index: 2;
+}
+
+#arbustotriple {
+    position: absolute;
+    left: 250px;
+    bottom: 15px;
+    z-index: 2;
+}
+
+.player {
     background-image: url(./img/centro.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -17,10 +60,10 @@
     width: 50px;
     position: absolute;
     left: 243px;
-    z-index: 2;
+    z-index: 3;
 }
 
-#jugador{
+#jugador {
     background-size: contain;
     background-repeat: no-repeat;
     height: 78px;
@@ -30,7 +73,7 @@
     z-index: 2;
 }
 
-.playerDerecha{
+.playerDerecha {
     background-image: url(./img/centro.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -42,37 +85,47 @@
 }
 
 @keyframes walkAnimationDer {
-    0%, 100% {
+
+    0%,
+    100% {
         background-image: url('./img/derecha/derc1.png');
         transform: scaleY(1);
     }
+
     11.11% {
         background-image: url('./img/derecha/derc2.png');
     }
+
     22.22% {
         background-image: url('./img/derecha/derc3.png');
     }
+
     33.33% {
         background-image: url('./img/derecha/derc4.png');
     }
+
     44.44% {
         background-image: url('./img/derecha/derc5.png');
     }
+
     55.55% {
         background-image: url('./img/derecha/derc6.png');
     }
+
     66.66% {
         background-image: url('./img/derecha/derc7.png');
     }
+
     77.77% {
         background-image: url('./img/derecha/derc8.png');
     }
+
     88.88% {
         background-image: url('./img/derecha/derc9.png');
     }
 }
 
-.playerIzquierda{
+.playerIzquierda {
     background-image: url(./img/centro.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -84,42 +137,52 @@
 }
 
 @keyframes walkAnimationIzq {
-    0%, 100% {
+
+    0%,
+    100% {
         background-image: url('./img/izquierda/izq1.png');
         transform: scaleY(1);
     }
+
     11.11% {
         background-image: url('./img/izquierda/izq2.png');
     }
+
     22.22% {
         background-image: url('./img/izquierda/izq3.png');
     }
+
     33.33% {
         background-image: url('./img/izquierda/izq4.png');
     }
+
     44.44% {
         background-image: url('./img/izquierda/izq5.png');
     }
+
     55.55% {
         background-image: url('./img/izquierda/izq6.png');
     }
+
     66.66% {
         background-image: url('./img/izquierda/izq7.png');
     }
+
     77.77% {
         background-image: url('./img/izquierda/izq8.png');
     }
+
     88.88% {
         background-image: url('./img/izquierda/izq9.png');
     }
 }
 
-.plataform{
+.plataform {
     position: absolute;
     background-image: url(./img/plataforma.png);
 }
 
-.enemy{
+.enemy {
     position: absolute;
     background-image: url(./img/gato.png);
     background-repeat: no-repeat;
@@ -129,17 +192,17 @@
     width: 30px;
 }
 
-.pipelines{
-    position:absolute;
+.pipelines {
+    position: absolute;
     z-index: 4;
     background-image: url(./img/tubo.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.star{
+.star {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     background-image: url(./img/chocolatina.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -147,7 +210,7 @@
     height: 25px;
 }
 
-#start{
+#start {
     background-color: red;
     background-image: url(./img/INICIO.jpg);
     position: absolute;
@@ -156,7 +219,7 @@
     z-index: 5;
 }
 
-#play{
+#play {
     position: absolute;
     left: 180px;
     z-index: 5;
@@ -164,10 +227,12 @@
     background-color: yellow;
     padding: 15px 50px;
 }
-#play:hover{
-    background-color: white; 
+
+#play:hover {
+    background-color: white;
 }
-#gameover{
+
+#gameover {
     background-image: url(./img/FIN.jpg);
     background-color: rgb(0, 0, 0);
     position: absolute;
@@ -178,7 +243,7 @@
     display: none;
 }
 
-.texto{
+.texto {
     margin-top: 160px;
     background-color: white;
     width: 350px;
@@ -186,7 +251,7 @@
     padding: 20px;
 }
 
-#restart{
+#restart {
     position: absolute;
     left: 180px;
     z-index: 5;
@@ -195,17 +260,19 @@
     color: white;
     padding: 15px 50px;
 }
-#restart:hover{
-    background-color: white; 
+
+#restart:hover {
+    background-color: white;
     color: black;
 }
-h1{
+
+h1 {
     text-align: center;
 }
 
-#status{
-    background-color: black;
-    border: 5px solid grey;
+#status {
+    background-color: #6b88fe;
+    border: 5px solid black;
     height: 50px;
     width: 490px;
     position: absolute;
@@ -233,7 +300,7 @@ h1{
     letter-spacing: 10px;
 }
 
-#cronometro{
+#cronometro {
     font-family: 'Pixelify Sans', sans-serif;
     color: white;
     position: absolute;
@@ -241,7 +308,7 @@ h1{
     left: 195px;
 }
 
-.kahoot{
+.kahoot {
     position: absolute;
     z-index: 1;
     background-image: url(./img/kahoot.png);
@@ -251,7 +318,7 @@ h1{
     height: 25px;
 }
 
-.box{
+.box {
     position: absolute;
     z-index: 4;
     background-image: url(./img/box.png);
@@ -261,8 +328,7 @@ h1{
     height: 30px;
 }
 
-.super{
-    /*background-image: url(./img/supersuper.png) !important;*/
+.super {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -275,31 +341,37 @@ h1{
         background-image: url('./img/supermode/1.png');
         transform: scaleY(1);
     }
+
     14.28% {
         background-image: url('./img/supermode/2.png');
     }
+
     28.56% {
         background-image: url('./img/supermode/3.png');
     }
+
     42.84% {
         background-image: url('./img/supermode/4.png');
     }
+
     57.12% {
         background-image: url('./img/supermode/5.png');
     }
+
     71.4% {
         background-image: url('./img/supermode/6.png');
     }
+
     85.68% {
         background-image: url('./img/supermode/7.png');
     }
+
     100% {
         background-image: url('./img/supermode/7.png');
     }
 }
 
-.jump{
-    /*background-image: url(./img/supersuper.png) !important;*/
+.jump {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -311,14 +383,18 @@ h1{
 }
 
 @keyframes jumpAnimation {
-    0%, 20% {
+
+    0%,
+    20% {
         background-image: url('./img/jump/3.png');
         transform: scaleY(1);
         transform: scaleX(1);
     }
+
     40% {
         background-image: url('./img/jump/4.png');
     }
+
     100% {
         background-image: url('./img/jump/5.png');
     }
@@ -346,7 +422,7 @@ h1{
     position: absolute;
 }
 
-.die{
+.die {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -362,13 +438,16 @@ h1{
         background-image: url('./img/die/1.png');
         transform: scaleY(1) scaleX(1);
     }
+
     40% {
         background-image: url('./img/die/2.png');
         transform: scaleY(1) scaleX(1);
     }
+
     70% {
         background-image: url('./img/die/3.png');
     }
+
     100% {
         background-image: url('./img/die/4.png');
     }
