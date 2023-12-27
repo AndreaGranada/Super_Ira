@@ -10,10 +10,11 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
   this.updown = 0;
   this.speed = 5;
   this.jumpspeed = 6;
+  this.falldownspeed = 10;
   this.hp = 3;
   this.isDead = false;
   this.sprite
-  this.floor = 15;
+  this.floor = 10;
   this.points = 0;
   this.noGaming = true;
   this.superMode = false
@@ -35,7 +36,6 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
 
   this.insertPlayer = function () {
     var newPlayer = document.createElement('div');
-    //newPlayer.classList.add('jugador');
     newPlayer.id = "jugador"
     newPlayer.classList.add('player');
     newPlayer.style.bottom = this.y + 'px';
@@ -55,7 +55,17 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
     }
 
     if (nextY >= self.floor && nextY < 550 + self.height) {
-      self.y += self.jumpspeed * self.updown
+      var gravity
+
+      if(self.updown === +1 || self.updown === 0){
+        gravity = self.jumpspeed
+      }
+
+      if(self.updown === -1){
+        gravity = self.falldownspeed
+      }
+
+      self.y += gravity * self.updown
       self.sprite.style.bottom = self.y + 'px'
     }
 

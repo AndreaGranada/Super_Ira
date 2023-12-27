@@ -213,8 +213,7 @@ window.addEventListener('keydown', function (e) {
 
         iratze.direction = -1
         if (jugador.classList.contains("player") || jugador.classList.contains("playerDerecha")) {
-          jugador.classList.remove("player")
-          jugador.classList.remove("playerDerecha")
+          jugador.classList.remove("player", "playerDerecha")
           jugador.classList.add("playerIzquierda")
         }
 
@@ -225,8 +224,7 @@ window.addEventListener('keydown', function (e) {
       case 'd':
         iratze.direction = +1
         if (jugador.classList.contains("player") || jugador.classList.contains("playerIzquierda")) {
-          jugador.classList.remove("player")
-          jugador.classList.remove("playerIzquierda")
+          jugador.classList.remove("player", "playerIzquierda")
           jugador.classList.add("playerDerecha")
         }
 
@@ -307,9 +305,7 @@ function playerMovement() {
     }
 
     if (jugador.classList.contains("stopAnimationLeft") || jugador.classList.contains("stopAnimationRight") || jugador.classList.contains("stopAnimation")) {
-      jugador.classList.remove("stopAnimationLeft")
-      jugador.classList.remove("stopAnimationRight")
-      jugador.classList.remove("stopAnimation")
+      jugador.classList.remove("stopAnimationLeft", "stopAnimationRight", "stopAnimation")
 
       if (iratze.direction === -1) {
         jugador.classList.add("playerIzquierda")
@@ -327,25 +323,17 @@ function playerMovement() {
 
   if (iratze.updown === 1 || iratze.updown === -1 && (jugador.classList.contains("jump") || jugador.classList.contains("stopAnimationRight") || jugador.classList.contains("stopAnimationLeft") || jugador.classList.contains("stopAnimation") || jugador.classList.contains("playerDerecha") || jugador.classList.contains("playerIzquierda"))) {
     if (iratze.direction === 1) {
-      jugador.classList.remove("jump")
-      jugador.classList.remove("stopAnimationLeft")
-      jugador.classList.remove("stopAnimation")
-      jugador.classList.remove("playerDerecha")
+      jugador.classList.remove("jump", "stopAnimationLeft", "stopAnimation", "playerDerecha")
       jugador.classList.add("stopAnimationRight")
     }
 
     if (iratze.direction === -1) {
-      jugador.classList.remove("jump")
-      jugador.classList.remove("stopAnimationRight")
-      jugador.classList.remove("stopAnimation")
-      jugador.classList.remove("playerIzquierda")
+      jugador.classList.remove("jump", "stopAnimationRight", "stopAnimation", "playerIzquierda")
       jugador.classList.add("stopAnimationLeft")
     }
 
     if (iratze.direction === 0 && iratze.updown === -1) {
-      jugador.classList.remove("jump")
-      jugador.classList.remove("stopAnimationRight")
-      jugador.classList.remove("stopAnimationLeft")
+      jugador.classList.remove("jump", "stopAnimationRight", "stopAnimationLeft")
       jugador.classList.add("stopAnimation")
     }
   }
@@ -383,8 +371,7 @@ window.addEventListener('keyup', function (e) {
   if (e.key === 'a' && iratze.direction === -1 || e.key === 'd' && iratze.direction === 1) {
     iratze.direction = 0;
     if (jugador.classList.contains("playerDerecha") || jugador.classList.contains("playerIzquierda")) {
-      jugador.classList.remove("playerDerecha")
-      jugador.classList.remove("playerIzquierda")
+      jugador.classList.remove("playerDerecha", "playerIzquierda")
       jugador.classList.add("player")
     }
 
