@@ -71,6 +71,17 @@ function CreatePlayer(x, y, parent, enemies, star, lifes, kahoot) {
 
   }
 
+  this.fall = function () {
+    var nextY = self.y + self.jumpspeed * self.updown;
+    self.updown = -1;
+
+    if (nextY >= self.floor && nextY < 550 + self.height) {
+      self.y += 14 * self.updown
+      self.sprite.style.bottom = self.y + 'px'
+    }
+
+  }
+
   var collisionCat = new Audio("./sounds/cat.mp3")
   var collisionChoco = new Audio("./sounds/nam.mp3")
   var collisionKahoot = new Audio("./sounds/bueno.mp3")

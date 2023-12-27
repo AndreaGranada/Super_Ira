@@ -294,6 +294,8 @@ var saltoHabilitado = true;
 
 var timerId = setInterval(playerMovement, 50)
 
+var caida
+
 function playerMovement() {
   iratze.move();
 
@@ -341,6 +343,10 @@ function playerMovement() {
   if (iratze.isDead === true) {
     var gameover = document.getElementById("gameover");
 
+    caida = setInterval(function(){
+      iratze.fall()
+    }, 50)
+
     jugador.classList.remove(...jugador.classList);
     jugador.classList.add("die")
 
@@ -350,6 +356,7 @@ function playerMovement() {
       document.getElementById("time").innerText = "YOUR TIME: " + minutos.toString().padStart(2, '0') + ":" + segundos.toString().padStart(2, '0')
       jugador.classList.remove("die")
       jugador.classList.add("player")
+      clearInterval(caida)
     }, 2000)
 
 
@@ -362,6 +369,7 @@ function playerMovement() {
     kahoot.removeKahoot()
     clearInterval(enemyGenTimer);
     iratze.isDead = false;
+    clearInterval(timerId);
   }
 }
 
@@ -420,6 +428,8 @@ restart.addEventListener("click", function () {
 
   iratze.points = 0
   score.innerText = iratze.points.toString().padStart(4, '0');
+
+  timerId = setInterval(playerMovement, 50)
 })
 
 export { createEnemy }
