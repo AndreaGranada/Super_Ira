@@ -401,6 +401,7 @@ start.addEventListener("click", function () {
 var restart = document.getElementById("restart")
 
 restart.addEventListener("click", function () {
+  clearInterval(caida)
   noGaming = false;
   iratze.noGaming = false;
   gameovermusic.pause();
